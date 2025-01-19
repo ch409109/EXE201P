@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ClickCart.Models
 {
-    public partial class Category
-    {
-        public Category()
-        {
-            Products = new HashSet<Product>();
-        }
+	public class Category
+	{
+		[Key]
+		public int CategoryID { get; set; }
 
-        public int CategoryId { get; set; }
-        public string CategoryName { get; set; } = null!;
-        public string? Description { get; set; }
+		[Required, MaxLength(100)]
+		public string CategoryName { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
-    }
+		[MaxLength(255)]
+		public string Description { get; set; }
+
+		public ICollection<Product> Products { get; set; }
+	}
 }

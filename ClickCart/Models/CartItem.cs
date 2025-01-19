@@ -1,16 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace ClickCart.Models
 {
-    public partial class CartItem
-    {
-        public int CartItemId { get; set; }
-        public int CartId { get; set; }
-        public int ProductId { get; set; }
-        public int Quantity { get; set; }
+	public class CartItem
+	{
+		[Key]
+		public int CartItemID { get; set; }
 
-        public virtual Cart Cart { get; set; } = null!;
-        public virtual Product Product { get; set; } = null!;
-    }
+		[Required, ForeignKey("Cart")]
+		public int CartID { get; set; }
+
+		[Required, ForeignKey("Product")]
+		public int ProductID { get; set; }
+
+		[Required]
+		public int Quantity { get; set; }
+
+		public Cart Cart { get; set; }
+		public Product Product { get; set; }
+	}
 }

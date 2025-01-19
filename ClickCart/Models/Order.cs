@@ -1,23 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace ClickCart.Models
 {
-    public partial class Order
-    {
-        public Order()
-        {
-            OrderDetails = new HashSet<OrderDetail>();
-        }
+	public class Order
+	{
+		[Key]
+		public int OrderID { get; set; }
 
-        public int OrderId { get; set; }
-        public int UserId { get; set; }
-        public int TotalAmount { get; set; }
-        public string PaymentStatus { get; set; } = null!;
-        public string PaymentGateway { get; set; } = null!;
-        public DateTime CreatedAt { get; set; }
+		[Required, ForeignKey("User")]
+		public int UserID { get; set; }
 
-        public virtual User User { get; set; } = null!;
-        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-    }
+		[Required]
+		public int TotalAmount { get; set; }
+
+		[Required, MaxLength(50)]
+		public string PaymentStatus { get; set; }
+
+		[Required, MaxLength(50)]
+		public string PaymentGateway { get; set; }
+
+		public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+		public User User { get; set; }
+		public ICollection<OrderDetail> OrderDetails { get; set; }
+	}
 }

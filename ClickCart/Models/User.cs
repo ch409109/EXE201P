@@ -1,26 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ClickCart.Models
 {
-    public partial class User
-    {
-        public User()
-        {
-            Carts = new HashSet<Cart>();
-            Orders = new HashSet<Order>();
-        }
+	public class User
+	{
+		[Key]
+		public int UserID { get; set; }
 
-        public int UserId { get; set; }
-        public string Username { get; set; } = null!;
-        public string PasswordHash { get; set; } = null!;
-        public string FullName { get; set; } = null!;
-        public string Email { get; set; } = null!;
-        public string? PhoneNumber { get; set; }
-        public string Role { get; set; } = null!;
-        public DateTime CreatedAt { get; set; }
+		[Required, MaxLength(50)]
+		public string Username { get; set; }
 
-        public virtual ICollection<Cart> Carts { get; set; }
-        public virtual ICollection<Order> Orders { get; set; }
-    }
+		[Required]
+		public string PasswordHash { get; set; }
+
+		[Required, MaxLength(100)]
+		public string FullName { get; set; }
+
+		[Required, MaxLength(100)]
+		public string Email { get; set; }
+
+		[MaxLength(15)]
+		public string PhoneNumber { get; set; }
+
+		[Required]
+		public string Role { get; set; }
+
+		public DateTime CreatedAt { get; set; } = DateTime.Now;
+	}
 }

@@ -1,29 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace ClickCart.Models
 {
-    public partial class Product
-    {
-        public Product()
-        {
-            CartItems = new HashSet<CartItem>();
-            ComboProducts = new HashSet<ComboProduct>();
-            OrderDetails = new HashSet<OrderDetail>();
-        }
+	public class Product
+	{
+		[Key]
+		public int ProductID { get; set; }
 
-        public int ProductId { get; set; }
-        public string ProductName { get; set; } = null!;
-        public int CategoryId { get; set; }
-        public int Price { get; set; }
-        public int Stock { get; set; }
-        public string? Description { get; set; }
-        public string? ImageUrl { get; set; }
-        public bool IsAlcoholic { get; set; }
+		[Required, MaxLength(100)]
+		public string ProductName { get; set; }
 
-        public virtual Category Category { get; set; } = null!;
-        public virtual ICollection<CartItem> CartItems { get; set; }
-        public virtual ICollection<ComboProduct> ComboProducts { get; set; }
-        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-    }
+		[Required, ForeignKey("Category")]
+		public int CategoryID { get; set; }
+
+		[Required]
+		public int Price { get; set; }
+
+		[Required]
+		public int Stock { get; set; }
+
+		public string Description { get; set; }
+
+		public string ImageUrl { get; set; }
+
+		public bool IsAlcoholic { get; set; }
+
+		public Category Category { get; set; }
+	}
 }

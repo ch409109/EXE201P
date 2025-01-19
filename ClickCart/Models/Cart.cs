@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace ClickCart.Models
 {
-    public partial class Cart
-    {
-        public Cart()
-        {
-            CartItems = new HashSet<CartItem>();
-        }
+	public class Cart
+	{
+		[Key]
+		public int CartID { get; set; }
 
-        public int CartId { get; set; }
-        public int UserId { get; set; }
-        public DateTime CreatedAt { get; set; }
+		[Required, ForeignKey("User")]
+		public int UserID { get; set; }
 
-        public virtual User User { get; set; } = null!;
-        public virtual ICollection<CartItem> CartItems { get; set; }
-    }
+		public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+		public User User { get; set; }
+		public ICollection<CartItem> CartItems { get; set; }
+	}
 }
