@@ -282,6 +282,118 @@ namespace ClickCart.Migrations
                     b.HasKey("UserID");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            UserID = 1,
+                            CreatedAt = new DateTime(2025, 1, 22, 22, 31, 16, 626, DateTimeKind.Local).AddTicks(1180),
+                            Email = "HaiLTHE172555@fpt.edu.vn",
+                            FullName = "Lại Tuấn Hai",
+                            PasswordHash = "$2a$11$LyatlCJrCHM/0pGzx.FxOeUu3/6q1KDCAVyc36OX8oPZbXXkFBfKG",
+                            PhoneNumber = "0123456789",
+                            Role = "Admin",
+                            Username = "HaiAdmin"
+                        },
+                        new
+                        {
+                            UserID = 2,
+                            CreatedAt = new DateTime(2025, 1, 22, 22, 31, 16, 779, DateTimeKind.Local).AddTicks(359),
+                            Email = "HungPVHE161180@fpt.edu.vn",
+                            FullName = "Phạm Việt Hưng",
+                            PasswordHash = "$2a$11$YDFKDJnE3Dqxtwi0/8CJbOxxxnStzisU/NOCEDDeu4kBQz/vfqySO",
+                            PhoneNumber = "0123456789",
+                            Role = "Admin",
+                            Username = "HungAdmin"
+                        },
+                        new
+                        {
+                            UserID = 3,
+                            CreatedAt = new DateTime(2025, 1, 22, 22, 31, 16, 930, DateTimeKind.Local).AddTicks(7067),
+                            Email = "CongHTHE172673@fpt.edu.vn",
+                            FullName = "Hoàng Thành Công",
+                            PasswordHash = "$2a$11$xBycT7OUUuRj1hl989eWoOHh0i6eGgYh0a0abmPot5Z740nUhTbmq",
+                            PhoneNumber = "0123456789",
+                            Role = "Admin",
+                            Username = "CongAdmin"
+                        },
+                        new
+                        {
+                            UserID = 4,
+                            CreatedAt = new DateTime(2025, 1, 22, 22, 31, 17, 102, DateTimeKind.Local).AddTicks(867),
+                            Email = "NhatLVHE176909@fpt.edu.vn",
+                            FullName = "Lê Việt Nhật",
+                            PasswordHash = "$2a$11$SryPYI66g.6/tANYt1qsLeQUiW.je7puASwTZw6DXaA6ywVk95EDO",
+                            PhoneNumber = "0123456789",
+                            Role = "Admin",
+                            Username = "NhatAdmin"
+                        },
+                        new
+                        {
+                            UserID = 5,
+                            CreatedAt = new DateTime(2025, 1, 22, 22, 31, 17, 298, DateTimeKind.Local).AddTicks(9357),
+                            Email = "TrongLCPHS176090@fpt.edu.vn",
+                            FullName = "Lê Công Phú Trọng",
+                            PasswordHash = "$2a$11$sZGjvmzDhgKHilIbNtt85uOMc1niqmJGYwk20wXlRpWxQAyn5aJ32",
+                            PhoneNumber = "0123456789",
+                            Role = "Admin",
+                            Username = "TrongAdmin"
+                        },
+                        new
+                        {
+                            UserID = 6,
+                            CreatedAt = new DateTime(2025, 1, 22, 22, 31, 17, 486, DateTimeKind.Local).AddTicks(5809),
+                            Email = "DatVTHS176109@fpt.edu.vn",
+                            FullName = "Vũ Tiến Đạt",
+                            PasswordHash = "$2a$11$rNBB1PynWTH2br/AmaHcr.Jf9Nm8LCCs4nJfR8G4D58QeX7QfpVBq",
+                            PhoneNumber = "0123456789",
+                            Role = "Admin",
+                            Username = "DatAdmin"
+                        },
+                        new
+                        {
+                            UserID = 7,
+                            CreatedAt = new DateTime(2025, 1, 22, 22, 31, 17, 650, DateTimeKind.Local).AddTicks(8210),
+                            Email = "TungNVHE170677@fpt.edu.vn",
+                            FullName = "Nguyễn Việt Tùng",
+                            PasswordHash = "$2a$11$dFFTMKTb7vyh5dirACJVf.9mSVxsDITBO2Ml31MmY1UE3K2xt85xO",
+                            PhoneNumber = "0987654321",
+                            Role = "User",
+                            Username = "TungUser"
+                        },
+                        new
+                        {
+                            UserID = 8,
+                            CreatedAt = new DateTime(2025, 1, 22, 22, 31, 17, 816, DateTimeKind.Local).AddTicks(9528),
+                            Email = "ToanPMHE171369@fpt.edu.vn",
+                            FullName = "Phan Mạnh Toàn",
+                            PasswordHash = "$2a$11$mrB64xKJXD7B8fD.ejAmEuvoSQKnWO566Dz3YxMkE3UyYbNqiKcFW",
+                            PhoneNumber = "0987654321",
+                            Role = "User",
+                            Username = "ToanUser"
+                        },
+                        new
+                        {
+                            UserID = 9,
+                            CreatedAt = new DateTime(2025, 1, 22, 22, 31, 17, 982, DateTimeKind.Local).AddTicks(1829),
+                            Email = "CuongPXHE172287@fpt.edu.vn",
+                            FullName = "Phạm Xuân Cường",
+                            PasswordHash = "$2a$11$EPV8uVU3mwpKNj2gwYN7Qu95abDSrighPdkoebotqgNaigydn.zrK",
+                            PhoneNumber = "0987654321",
+                            Role = "User",
+                            Username = "CuongUser"
+                        },
+                        new
+                        {
+                            UserID = 10,
+                            CreatedAt = new DateTime(2025, 1, 22, 22, 31, 18, 150, DateTimeKind.Local).AddTicks(3765),
+                            Email = "AnhVNHE151076@fpt.edu.vn",
+                            FullName = "Vũ Nam Anh",
+                            PasswordHash = "$2a$11$mBJHjjxt1Oc5kXkxK7m5cuZ3TZbJ1OkHQn.n93v49NkJT.6qaVs42",
+                            PhoneNumber = "0123456789",
+                            Role = "User",
+                            Username = "AnhUser"
+                        });
                 });
 
             modelBuilder.Entity("ClickCart.Models.Voucher", b =>

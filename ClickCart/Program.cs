@@ -1,4 +1,6 @@
-using ClickCart.Models;
+﻿using ClickCart.Models;
+using ClickCart.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClickCart
@@ -9,10 +11,26 @@ namespace ClickCart
 		{
 			var builder = WebApplication.CreateBuilder(args);
 			builder.Services.AddDbContext<ClickCartDbContext>(options =>
-	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+			options.UseSqlServer(builder.Configuration.GetConnectionString("MyDB")));
 
 			// Add services to the container.
 			builder.Services.AddRazorPages();
+			builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+				 .AddCookie(options =>
+				 {
+					 options.LoginPath = "/Login";
+				 });
+			builder.Services.AddSession(options =>
+			{
+				options.IdleTimeout = TimeSpan.FromMinutes(30); // Thời gian hết hạn của session
+				options.Cookie.HttpOnly = true;
+				options.Cookie.IsEssential = true;
+			});
+			// Ánh xạ cấu hình EmailSettings từ appsettings.json
+			builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+
+			// Đăng ký EmailService
+			builder.Services.AddTransient<EmailService>();
 
 			var app = builder.Build();
 
@@ -25,11 +43,16 @@ namespace ClickCart
 			}
 
 			app.UseHttpsRedirection();
+
+			app.UseSession();
+
 			app.UseStaticFiles();
 
 			app.UseRouting();
 
 			app.UseAuthorization();
+
+			app.UseAuthentication();
 
 			app.MapRazorPages();
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ClickCart.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClickCart.Models
 {
@@ -19,6 +20,7 @@ namespace ClickCart.Models
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<ComboProduct>().HasKey(cp => new { cp.ComboID, cp.ProductID });
+			modelBuilder.Seed();
 		}
 	}
 }
