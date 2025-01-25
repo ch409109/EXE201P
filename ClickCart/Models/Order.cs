@@ -14,6 +14,9 @@ namespace ClickCart.Models
 		[Required]
 		public int TotalAmount { get; set; }
 
+		[Required]
+		public string ShippingAddress { get; set; }
+
 		[Required, MaxLength(50)]
 		public string PaymentStatus { get; set; }
 

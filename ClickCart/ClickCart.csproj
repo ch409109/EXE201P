@@ -7,10 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\Login\**" />
+    <Content Remove="wwwroot\Login\**" />
+    <EmbeddedResource Remove="wwwroot\Login\**" />
+    <None Remove="wwwroot\Login\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\Admin\" />
     <Folder Include="Pages\Customer\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.36" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.36" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.36">
