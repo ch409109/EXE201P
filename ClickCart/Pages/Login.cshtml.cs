@@ -61,7 +61,7 @@ namespace ClickCart.Pages
 				new Claim("UserId",user.UserID.ToString()),
 				new Claim("Username", user.FullName),
 				new Claim("Password", user.PasswordHash),
-				new Claim("Fullname", user.FullName),
+				new Claim(ClaimTypes.Name, user.FullName),
 				new Claim("Email", user.Email),
 				new Claim("PhoneNumber", user.PhoneNumber),
 				new Claim(ClaimTypes.Role, user.Role)
