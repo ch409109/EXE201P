@@ -92,13 +92,6 @@ namespace ClickCart.Pages
 				Response.Cookies.Delete("Password");
 				Response.Cookies.Delete("isKeepSignin");
 			}
-			switch (user.Role)
-			{
-				case "Admin":
-					return RedirectToPage("/Privacy");
-				case "Customer":
-					return RedirectToPage("/Index");
-			}
 			return RedirectToPage("/Index");
 		}
 

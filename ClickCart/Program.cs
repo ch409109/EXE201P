@@ -11,7 +11,7 @@ namespace ClickCart
 		{
 			var builder = WebApplication.CreateBuilder(args);
 			builder.Services.AddDbContext<ClickCartDbContext>(options =>
-			options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+			options.UseSqlServer(builder.Configuration.GetConnectionString("MyDB")));
 
 			// Add services to the container.
 			builder.Services.AddRazorPages();
