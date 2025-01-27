@@ -1,0 +1,390 @@
+﻿@page
+@using ClickCart.Models
+@model ClickCart.Pages.Customer.UserProfileModel
+@{
+	Layout = "_UserLayout";
+}
+<style>
+	/* General Styles */
+	body {
+		font-family: 'Arial', sans-serif;
+		color: #333;
+		line-height: 1.6;
+	}
+
+	#user-profile {
+		padding: 40px 0 80px 0;
+		background-color: #f8f9fa;
+	}
+
+	/* Card Styles */
+	.card {
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		border-radius: 12px;
+		transition: transform 0.2s ease-in-out;
+	}
+
+		.card:hover {
+			transform: translateY(-5px);
+		}
+
+	.card-header {
+		color: white;
+		border-bottom: 2px solid #0056b3;
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+
+	.card-body {
+		padding: 20px;
+	}
+
+	.card img {
+		border-radius: 50%;
+		border: 4px solid #007bff;
+	}
+
+	/* Table Styles */
+	.table {
+		background-color: white;
+		border-radius: 12px;
+		overflow: hidden;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	}
+
+		.table th {
+			background-color: #343a40;
+			color: white;
+			text-transform: uppercase;
+			font-size: 14px;
+		}
+
+	.table-striped tbody tr:nth-of-type(odd) {
+		background-color: #f8f9fa;
+	}
+
+	.table-striped tbody tr:hover {
+		background-color: #e9ecef;
+	}
+
+	/* Buttons */
+	.btn-primary {
+		background-color: #007bff;
+		border-color: #0056b3;
+		color: white;
+		transition: background-color 0.3s ease, transform 0.2s ease;
+	}
+
+		.btn-primary:hover {
+			background-color: #0056b3;
+			transform: translateY(-2px);
+		}
+
+	.btn-secondary {
+		background-color: #6c757d;
+		border-color: #545b62;
+		color: white;
+		transition: background-color 0.3s ease, transform 0.2s ease;
+	}
+
+		.btn-secondary:hover {
+			background-color: #545b62;
+			transform: translateY(-2px);
+		}
+
+	/* Password Section */
+	.password-section {
+		margin-bottom: 60px;
+		background-color: #fff;
+		border: 1px solid #dee2e6;
+		border-radius: 12px;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	}
+
+	/* Toggle Details */
+	.toggle-details {
+		font-size: 14px;
+		text-transform: uppercase;
+	}
+
+	.order-details {
+		background-color: #f8f9fa;
+		box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.05);
+	}
+
+	/* Alerts */
+	.alert {
+		border-radius: 12px;
+		padding: 15px 20px;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	}
+
+	.alert-info {
+		background-color: #d1ecf1;
+		color: #0c5460;
+		border: 1px solid #bee5eb;
+	}
+
+	}
+</style>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<h2 class="text-danger text-center" style="font-size:medium">@TempData["msg"]</h2>
+		</div>
+	</div>
+</div>
+<section id="user-profile">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-body text-center">
+						<img src="~/common/images/logo/User.jpg" alt="User Avatar"
+							 class="rounded-circle img-fluid mb-4" style="width: 150px; height: 150px;">
+						<h4 class="card-title mb-2" id="userFullName">@Model.Customer.FullName</h4>
+						<p class="text-muted mb-2" id="userRole">Vai trò người dùng</p>
+						<p class="text-muted mb-0">
+							<small>
+								Thành viên từ: <span id="createdDate">@Model.Customer.CreatedAt.ToString("dd/MM/yyyy")</span>
+							</small>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-header d-flex justify-content-between align-items-center">
+						<h5 class="mb-0">Thông tin cá nhân</h5>
+						<button class="btn btn-primary btn-sm" id="editProfile">
+							<i class="fa fa-edit"></i> Chỉnh sửa
+						</button>
+					</div>
+					<div class="card-body">
+						<form id="profileForm" asp-page-handler="ChangeInformation" method="post">
+							<div class="form-group row">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Tên đăng nhập</h6>
+								</div>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="username" value="@Model.Customer.Username" disabled>
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Họ và tên</h6>
+								</div>
+								<div class="col-sm-9">
+									<input asp-for="@Model.Customer.FullName" required type="text" class="form-control" id="fullName" value="@Model.Customer.FullName" disabled>
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Email</h6>
+								</div>
+								<div class="col-sm-9">
+									<input asp-for="@Model.Customer.Email" required type="email" class="form-control" id="email" value="@Model.Customer.Email" disabled>
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Số điện thoại</h6>
+								</div>
+								<div class="col-sm-9">
+									<input asp-for="@Model.Customer.PhoneNumber" required maxlength="10" pattern="^0[0-9]{9}$" type="tel" class="form-control" id="phone" value="@Model.Customer.PhoneNumber" disabled>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-3"></div>
+								<div class="col-sm-9">
+									<div class="btn-group" role="group">
+										<button type="submit" class="btn btn-success me-2" id="saveChanges"
+												style="display: none;">
+											<i class="fa fa-save"></i> Lưu thay đổi
+										</button>
+										<button type="button" class="btn btn-secondary" id="cancelEdit"
+												style="display: none;">
+											<i class="fa fa-times"></i> Hủy
+										</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<div class="card password-section">
+					<div class="card-header">
+						<h5 class="mb-0">Đổi mật khẩu</h5>
+					</div>
+					<div class="card-body">
+						<form id="passwordForm" asp-page-handler="ChangePassword" method="post">
+							<div class="form-group row">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Mật khẩu hiện tại</h6>
+								</div>
+								<div class="col-sm-9">
+									<input asp-for="@Model.CurrentPassword" type="password" class="form-control" id="currentPassword">
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Mật khẩu mới</h6>
+								</div>
+								<div class="col-sm-9">
+									<input asp-for="@Model.NewPassword" required minlength="6" type="password" class="form-control" id="newPassword">
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Xác nhận mật khẩu</h6>
+								</div>
+								<div class="col-sm-9">
+									<input asp-for="@Model.ConfirmPassword" required minlength="6" type="password" class="form-control" id="confirmPassword">
+								</div>
+							</div>
+							<div class="row mt-3">
+								<div class="col-sm-3"></div>
+								<div class="col-sm-9">
+									<button type="submit" class="btn btn-primary">
+										<i class="fa fa-key"></i> Cập nhật mật khẩu
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section id="order-history">
+	<div class="container mt-5">
+		<h2 class="title text-center mb-4">Lịch sử đơn hàng</h2>
+
+		@if (Model.Orders.Any())
+		{
+			<div class="table-responsive">
+				<table class="table table-striped table-bordered text-center">
+					<thead class="thead-dark">
+						<tr>
+							<th>Mã Đơn Hàng</th>
+							<th>Ngày Tạo</th>
+							<th>Địa Chỉ Giao Hàng</th>
+							<th>Tổng Tiền</th>
+							<th>Trạng Thái Thanh Toán</th>
+							<th>Cổng Thanh Toán</th>
+							<th>Hành Động</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var order in Model.Orders)
+						{
+							<tr>
+								<td>@order.OrderID</td>
+								<td>@order.CreatedAt.ToString("dd/MM/yyyy")</td>
+								<td>@order.ShippingAddress</td>
+								<td>@String.Format("{0:N0} VND", order.TotalAmount)</td>
+								<td>@order.PaymentStatus</td>
+								<td>@order.PaymentGateway</td>
+								<td>
+									<button class="btn btn-primary btn-sm toggle-details" data-order-id="@order.OrderID">
+										Xem chi tiết
+									</button>
+								</td>
+							</tr>
+							<tr id="order-details-@order.OrderID" class="order-details" style="display: none;">
+								<td colspan="7">
+									<div class="table-responsive">
+										<h5 class="text-center mb-3">Chi tiết đơn hàng</h5>
+										<table class="table table-bordered text-center">
+											<thead>
+												<tr>
+													<th>Sản Phẩm</th>
+													<th>Số Lượng</th>
+													<th>Đơn Giá</th>
+													<th>Thành Tiền</th>
+												</tr>
+											</thead>
+											<tbody>
+												@foreach (var detail in order.OrderDetails)
+												{
+													<tr>
+
+														<td>
+															@{
+																var productname = Model.Products.FirstOrDefault(p => p.ProductID == detail.ProductID)?.ProductName;
+															}
+															@productname
+														</td>
+
+														<td>@detail.Quantity</td>
+														<td>@detail.Price.ToString("N0") VND</td>
+														<td>@String.Format("{0:N0} VND", (detail.Price * detail.Quantity))</td>
+													</tr>
+												}
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		}
+		else
+		{
+			<div class="alert alert-info text-center" role="alert">
+				Bạn chưa có đơn hàng nào.
+			</div>
+		}
+	</div>
+</section>
+
+<script src="~/common/js/jquery.js"></script>
+<script src="~/common/js/bootstrap.min.js"></script>
+<script src="~/common/js/jquery.scrollUp.min.js"></script>
+<script src="~/common/js/price-range.js"></script>
+<script src="~/common/js/jquery.prettyPhoto.js"></script>
+<script src="~/common/js/main.js"></script>
+
+<script>
+	// Enable form editing
+	document.getElementById('editProfile').addEventListener('click', function () {
+		const inputs = document.querySelectorAll('#profileForm input, #profileForm textarea');
+		inputs.forEach(input => {
+			if (input.id !== 'username') {
+				input.disabled = false;
+			}
+		});
+		document.getElementById('saveChanges').style.display = 'inline-block';
+		document.getElementById('cancelEdit').style.display = 'inline-block';
+		this.style.display = 'none';
+	});
+
+	// Cancel editing
+	document.getElementById('cancelEdit').addEventListener('click', function () {
+		const inputs = document.querySelectorAll('#profileForm input, #profileForm textarea');
+		inputs.forEach(input => {
+			input.disabled = true;
+		});
+		document.getElementById('saveChanges').style.display = 'none';
+		this.style.display = 'none';
+		document.getElementById('editProfile').style.display = 'inline-block';
+	});
+	document.querySelectorAll('.toggle-details').forEach(button => {
+        button.addEventListener('click', function () {
+            const orderId = this.getAttribute('data-order-id');
+            const detailsRow = document.getElementById(`order-details-${orderId}`);
+            
+            // Toggle display style
+            if (detailsRow.style.display === 'none') {
+                detailsRow.style.display = 'table-row';
+            } else {
+                detailsRow.style.display = 'none';
+            }
+        });
+    });
+</script>

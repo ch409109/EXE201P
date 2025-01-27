@@ -35,8 +35,8 @@
 					<div class="col-sm-6">
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
-								<li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+								<li><a href="#"><i class="fa fa-phone"></i> +84 986 868 686</a></li>
+								<li><a href="#"><i class="fa fa-envelope"></i> clickcart.emailservice@gmail.com</a></li>
 							</ul>
 						</div>
 					</div>
@@ -44,9 +44,6 @@
 						<div class="social-icons pull-right">
 							<ul class="nav navbar-nav">
 								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-								<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
 								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
 							</ul>
 						</div>
@@ -61,7 +58,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="index.html">
+							<a asp-page="/Index">
 								<img style="width: 140px;" src="~/common/images/logo/logo-Photoroom.png"
 									 alt="" />
 							</a>
@@ -70,9 +67,25 @@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="profile.html"><i class="fa fa-user"></i>Tài khoản</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i>Giỏ hàng</a></li>
-								<li><a class="active" href="login.html"><i class="fa fa-lock"></i>Đăng nhập</a></li>
+								@if (User.Identity.IsAuthenticated)
+								{
+									if (User.IsInRole("Admin"))
+									{
+										<li><a asp-page="/Admin/Dashboard"><i class="fa fa-dashboard"></i> Admin Dashboard</a></li>
+									}
+									else if (User.IsInRole("Customer"))
+									{
+										<li><a asp-page="/Customer/UserProfile"><i class="fa fa-user"></i> Tài khoản</a></li>
+										<li><a asp-page="/Customer/Cart"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+									}
+
+									<li><a asp-page="/Logout"><i class="fa fa-sign-out"></i> Đăng xuất</a></li>
+								}
+								else
+								{
+									<li><a asp-page="/Login"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+								}
+
 							</ul>
 						</div>
 					</div>
@@ -96,9 +109,9 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.html">Trang chủ</a></li>
-								<li><a href="shop.html">Sản phẩm</a></li>
-								<li><a href="contact-us.html">Liên hệ</a></li>
+								<li><a asp-page="/Index">Trang chủ</a></li>
+								<li><a asp-page="/Products/Index">Sản phẩm</a></li>
+								<li><a asp-page="">Liên hệ</a></li>
 							</ul>
 						</div>
 					</div>

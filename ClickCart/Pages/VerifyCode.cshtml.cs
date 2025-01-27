@@ -1,5 +1,6 @@
 ﻿using ClickCart.Models;
 using ClickCart.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text.Json;
@@ -19,9 +20,20 @@ namespace ClickCart.Pages
 
 		[BindProperty]
 		public string Code { get; set; }
-		public void OnGet()
+		public IActionResult OnGet()
 		{
+			if (!User.Identity.IsAuthenticated)
+			{
+				return RedirectToPage("/Login"); // Chuyển hướng đến trang đăng nhập nếu chưa đăng nhập
+			}
+			var verificationCode = HttpContext.Session.GetString("VerificationCode");
+			if (string.IsNullOrEmpty(verificationCode))
+			{
+				TempData["msg"] = "Hãy nhập thông tin đăng ký";
+				return RedirectToPage("/Login"); // Chỉ cho phép vào nếu có mã xác thực trong Session
+			}
 			TempData["msg"] = "Mã xác nhận đã được gửi đến email của quý khách. Quý khách vui lòng kiểm tra email và nhập mã xác nhận.";
+			return Page();
 		}
 		public async Task<IActionResult> OnPostVerifyAsync()
 		{

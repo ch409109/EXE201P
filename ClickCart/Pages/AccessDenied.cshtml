@@ -1,0 +1,13 @@
+﻿@page
+@model ClickCart.Pages.AccessDeniedModel
+@{
+    ViewData["Title"] = "Access Denied";
+	Layout = "_UserLayout";
+}
+
+<section class="container mt-5 text-center">
+    <h1>Truy cập bị từ chối</h1>
+    <p>Bạn không có quyền truy cập vào trang này.</p>
+    <a asp-page="/Index" class="btn btn-primary">Quay lại trang chủ</a>
+</section>
+<br/>

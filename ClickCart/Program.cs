@@ -19,6 +19,7 @@ namespace ClickCart
 				 .AddCookie(options =>
 				 {
 					 options.LoginPath = "/Login";
+					 options.AccessDeniedPath = "/AccessDenied";
 				 });
 			builder.Services.AddSession(options =>
 			{
