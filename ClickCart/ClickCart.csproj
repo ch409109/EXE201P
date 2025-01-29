@@ -15,10 +15,22 @@
 
   <ItemGroup>
 
-    <Folder Include="Pages\Admin\" />
-
     <Folder Include="Pages\Customer\" />
 
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\vendor\fonts\boxicons\boxicons.svg" />
+    <None Include="wwwroot\vendor\fonts\boxicons\boxicons.woff2" />
+    <None Include="wwwroot\vendor\js\bootstrap.js" />
+    <None Include="wwwroot\vendor\js\helpers.js" />
+    <None Include="wwwroot\vendor\js\menu.js" />
+    <None Include="wwwroot\vendor\libs\apex-charts\apexcharts.js" />
+    <None Include="wwwroot\vendor\libs\highlight\highlight.js" />
+    <None Include="wwwroot\vendor\libs\jquery\jquery.js" />
+    <None Include="wwwroot\vendor\libs\masonry\masonry.js" />
+    <None Include="wwwroot\vendor\libs\perfect-scrollbar\perfect-scrollbar.js" />
+    <None Include="wwwroot\vendor\libs\popper\popper.js" />
   </ItemGroup>
 
   <ItemGroup>

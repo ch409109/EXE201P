@@ -1,0 +1,207 @@
+﻿@page
+@model ClickCart.Pages.Admin.Dashboard.IndexModel
+@{
+    ViewData["Title"] = "Revenue Management";
+    Layout = "_AdminSideLayout";
+}
+
+<div class="container-fluid p-4">
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Quản lý doanh thu</h1>
+        <form method="get" class="d-flex align-items-center gap-2">
+            <div class="d-flex align-items-center">
+                <label for="selectedYear" class="me-2">Năm:</label>
+                <select id="selectedYear"
+                        asp-for="SelectedYear"
+                        asp-items="Model.YearList"
+                        class="form-select"
+                        style="width: 150px;">
+                    <option value="">Chọn năm</option>
+                </select>
+            </div>
+
+            <button class="btn btn-primary" type="submit">Lọc</button>
+            <button class="btn btn-secondary" type="button" onclick="clearFilters()">Xóa bộ lọc</button>
+        </form>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+        <!-- Total Revenue Card -->
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Tổng doanh thu
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                @{
+                                    var totalRevenue = Model.MonthlyRevenueData.Sum(m => m.TotalRevenue);
+                                    @String.Format("{0:N0} VNĐ", totalRevenue)
+                                }
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Average Revenue Card -->
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Doanh thu trung bình
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                @{
+                                    var avgRevenue = Model.MonthlyRevenueData.Average(m => m.TotalRevenue);
+                                    @String.Format("{0:N0} VNĐ", avgRevenue)
+                                }
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-chart-line fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Growth Rate Card -->
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Tăng trưởng
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                @{
+                                    var lastTwoMonths = Model.MonthlyRevenueData.OrderByDescending(m => m.Month).Take(2).ToList();
+                                    if (lastTwoMonths.Count == 2 && lastTwoMonths[1].TotalRevenue != 0)
+                                    {
+                                        var growth = ((lastTwoMonths[0].TotalRevenue - lastTwoMonths[1].TotalRevenue) / lastTwoMonths[1].TotalRevenue) * 100;
+                                        @String.Format("{0:N1}%", growth)
+                                    }
+                                    else
+                                    {
+                                        @("N/A")
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-percent fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Revenue Chart -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Biểu đồ doanh thu theo tháng</h6>
+        </div>
+        <div class="card-body">
+            <div class="chart-area">
+                <canvas id="revenueChart" style="height: 350px;"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script>
+        const ctx = document.getElementById('revenueChart').getContext('2d');
+        const revenueChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: @Html.Raw(Json.Serialize(Model.MonthlyRevenueData.Select(m => $"Tháng {m.Month}"))),
+                datasets: [{
+                    label: 'Doanh thu',
+                    data: @Html.Raw(Json.Serialize(Model.MonthlyRevenueData.Select(m => m.TotalRevenue))),
+                    backgroundColor: 'rgba(78, 115, 223, 0.6)',
+                    borderColor: 'rgba(78, 115, 223, 1)',
+                    borderWidth: 1,
+                    borderRadius: 5,
+                    maxBarThickness: 50
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                label += new Intl.NumberFormat('vi-VN', {
+                                    style: 'currency',
+                                    currency: 'VND'
+                                }).format(context.raw);
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function (value) {
+                                return new Intl.NumberFormat('vi-VN', {
+                                    style: 'currency',
+                                    currency: 'VND',
+                                    maximumFractionDigits: 0
+                                }).format(value);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+    <style>
+        .border-left-primary {
+            border-left: 4px solid #4e73df !important;
+        }
+
+        .border-left-success {
+            border-left: 4px solid #1cc88a !important;
+        }
+
+        .border-left-info {
+            border-left: 4px solid #36b9cc !important;
+        }
+
+        .chart-area {
+            position: relative;
+            height: 350px;
+            width: 100%;
+        }
+
+        .card-header {
+            background-color: #f8f9fc;
+            border-bottom: 1px solid #e3e6f0;
+        }
+    </style>
+}
