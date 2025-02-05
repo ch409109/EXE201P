@@ -1,5 +1,8 @@
-﻿using ClickCart.Models;
+﻿using ClickCart.Configurations;
+using ClickCart.Models;
 using ClickCart.Services;
+using ClickCart.Services.Implementations;
+using ClickCart.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,8 +13,10 @@ namespace ClickCart
 		public static void Main(string[] args)
 		{
 			var builder = WebApplication.CreateBuilder(args);
-			builder.Services.AddDbContext<ClickCartDbContext>(options =>
-			options.UseSqlServer(builder.Configuration.GetConnectionString("MyDB")));
+            builder.Services.AddHttpContextAccessor();
+
+            builder.Services.AddDbContext<ClickCartDbContext>(options =>
+			options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 			// Add services to the container.
 			builder.Services.AddRazorPages();
@@ -32,6 +37,11 @@ namespace ClickCart
 
 			// Đăng ký EmailService
 			builder.Services.AddTransient<EmailService>();
+            builder.Services.AddScoped<OrderService>();
+
+            builder.Services.Configure<VNPayConfig>(
+            builder.Configuration.GetSection("VNPay"));
+            builder.Services.AddScoped<IVNPayService, VNPayService>();
 
             var app = builder.Build();
 
