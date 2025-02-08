@@ -38,7 +38,7 @@ namespace ClickCart.Pages.Admin.Voucher
 
                 Vouchers = await _context.Vouchers
                     .OrderBy(v => v.VoucherID)
-                    .Skip((PageNumber - 1) * PageSize)
+                    .Skip((PageNumber - 1) * PageSize)     
                     .Take(PageSize)
                     .ToListAsync();
             }
@@ -53,7 +53,7 @@ namespace ClickCart.Pages.Admin.Voucher
                 await _context.SaveChangesAsync();
             }
             return RedirectToPage();
-        }
+        }    
 
         public async Task<IActionResult> OnPostEditAsync()
         {

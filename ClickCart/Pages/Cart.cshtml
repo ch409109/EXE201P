@@ -112,6 +112,10 @@
 			</div>
 		</div><!--/header-bottom-->
 	</header><!--/header-->
+	@{
+		ViewData["Title"] = "Cart";
+		Layout = "_UserLayout";
+	}
 
 	<section id="cart_items">
 		<div class="container">
@@ -134,87 +138,62 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td class="cart_product">
-								<a href=""><img width="110px" height="110px" src="images/products/Do_An_Vat/Bánh gạo Jinju cốm sữa.png" alt=""></a>
-							</td>
-							<td class="cart_description">
-								<h4><a href="">Bánh gạo Jinju cốm sữa</a></h4>
-								<!-- <p>Web ID: 1089772</p> -->
-							</td>
-							<td class="cart_price">
-								<p>24.400 VND</p>
-							</td>
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href=""> - </a>
-								</div>
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">24.400 VND</p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
-
-						<tr>
-							<td class="cart_product">
-								<a href=""><img width="110px" height="110px" src="images/products/Do_An_Vat/Snach khoai tây Lay's tôm hùm cay lon 105 g.png" alt=""></a>
-							</td>
-							<td class="cart_description">
-								<h4><a href="">Snach khoai tây Lay's tôm hùm cay lon 105 g</a></h4>
-								<!-- <p>Web ID: 1089772</p> -->
-							</td>
-							<td class="cart_price">
-								<p>28.400 VND</p>
-							</td>
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href=""> - </a>
-								</div>
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">28.400 VND</p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
-						<tr>
-							<td class="cart_product">
-								<a href=""><img width="110px" height="110px" src="images/products/Nuoc_Giai_Khat/Nước uống sữa trái cây bổ dưỡng hương cam Nutri Boost chai 1L.jpg" alt=""></a>
-							</td>
-							<td class="cart_description">
-								<h4><a href="">Nước uống sữa trái cây bổ dưỡng <br> hương cam Nutri Boost chai 1L</a></h4>
-								<!-- <p>Web ID: 1089772</p> -->
-							</td>
-							<td class="cart_price">
-								<p>18.800 VND</p>
-							</td>
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href=""> - </a>
-								</div>
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">18.800 VND</p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
+						@foreach (var item in Model.CartItems)
+						{
+							<tr>
+								<td class="cart_product">
+									<a href=""><img width="110px" height="110px" src="@item.Product.ImageUrl" alt=""></a>
+								</td>
+								<td class="cart_description">
+									<h4><a href="">@item.Product.ProductName</a></h4>
+								</td>
+								<td class="cart_price">
+									<p>@item.Product.Price VND</p>
+								</td>
+								<td class="cart_quantity">
+									<div class="cart_quantity_button">
+										<form method="post" asp-page-handler="Update">
+											<input type="hidden" name="cartItemId" value="@item.CartItemID" />
+											<input class="cart_quantity_input" type="number" name="quantity" value="@item.Quantity" min="1" />
+											<button type="submit">Cập nhật</button>
+										</form>
+									</div>
+								</td>
+								<td class="cart_total">
+									<p class="cart_total_price">@(item.Product.Price * item.Quantity) VND</p>
+								</td>
+								<td class="cart_delete">
+									<form method="post" asp-page-handler="Delete">
+										<input type="hidden" name="cartItemId" value="@item.CartItemID" />
+										<button type="submit" class="cart_quantity_delete"><i class="fa fa-times"></i></button>
+									</form>
+								</td>
+							</tr>
+						}
 					</tbody>
 				</table>
 			</div>
 		</div>
-	</section> <!--/#cart_items-->
+	</section>
+
+	<section id="do_action">
+		<div class="container">
+			<div class="heading">
+				<h3>Bạn muốn làm gì tiếp theo?</h3>
+			</div>
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="total_area">
+						<ul>
+							<li>Tổng tiền <span>@Model.TotalPrice VND</span></li>
+						</ul>
+						<a class="btn btn-default check_out" href="checkout.html">Thanh toán</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
 
 	<section id="do_action">
 		<div class="container">
