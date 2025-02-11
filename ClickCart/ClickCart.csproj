@@ -14,12 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-
-    <Folder Include="Pages\Customer\" />
-
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\vendor\fonts\boxicons\boxicons.svg" />
     <None Include="wwwroot\vendor\fonts\boxicons\boxicons.woff2" />
     <None Include="wwwroot\vendor\js\bootstrap.js" />

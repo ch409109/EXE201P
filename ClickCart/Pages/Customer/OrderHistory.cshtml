@@ -1,0 +1,89 @@
+﻿@page
+@model ClickCart.Pages.Customer.OrderHistoryModel
+@{
+    Layout = "_UserLayout";
+}
+
+<section id="order-history">
+	<div class="container mt-5">
+		<h2 class="title text-center mb-4">Lịch sử đơn hàng</h2>
+
+		@if (Model.Orders.Any())
+		{
+			<div class="table-responsive">
+				<table class="table table-striped table-bordered text-center">
+					<thead class="thead-dark">
+						<tr>
+							<th>Mã Đơn Hàng</th>
+							<th>Ngày Tạo</th>
+							<th>Địa Chỉ Giao Hàng</th>
+							<th>Tổng Tiền</th>
+							<th>Trạng Thái Thanh Toán</th>
+							<th>Cổng Thanh Toán</th>
+							<th>Hành Động</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var order in Model.Orders)
+						{
+							<tr>
+								<td>@order.OrderID</td>
+								<td>@order.CreatedAt.ToString("dd/MM/yyyy")</td>
+								<td>@order.ShippingAddress</td>
+								<td>@String.Format("{0:N0} VND", order.TotalAmount)</td>
+								<td>@order.PaymentStatus</td>
+								<td>@order.PaymentGateway</td>
+								<td>
+									<button class="btn btn-primary btn-sm toggle-details" data-order-id="@order.OrderID">
+										Xem chi tiết
+									</button>
+								</td>
+							</tr>
+							<tr id="order-details-@order.OrderID" class="order-details" style="display: none;">
+								<td colspan="7">
+									<div class="table-responsive">
+										<h5 class="text-center mb-3">Chi tiết đơn hàng</h5>
+										<table class="table table-bordered text-center">
+											<thead>
+												<tr>
+													<th>Sản Phẩm</th>
+													<th>Số Lượng</th>
+													<th>Đơn Giá</th>
+													<th>Thành Tiền</th>
+												</tr>
+											</thead>
+											<tbody>
+												@foreach (var detail in order.OrderDetails)
+												{
+													<tr>
+
+														<td>
+															@{
+																var productname = Model.Products.FirstOrDefault(p => p.ProductID == detail.ProductID)?.ProductName;
+															}
+															@productname
+														</td>
+
+														<td>@detail.Quantity</td>
+														<td>@detail.Price.ToString("N0") VND</td>
+														<td>@String.Format("{0:N0} VND", (detail.Price * detail.Quantity))</td>
+													</tr>
+												}
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		}
+		else
+		{
+			<div class="alert alert-info text-center" role="alert">
+				Bạn chưa có đơn hàng nào.
+			</div>
+		}
+	</div>
+</section>
