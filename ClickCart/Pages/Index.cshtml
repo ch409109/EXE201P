@@ -117,104 +117,106 @@
 </section><!--/slider-->
 
 <section>
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12 padding-right">
-				<div class="features_items">
-					<!--features_items-->
-					<h2 class="title text-center">Sản phẩm nổi bật</h2>
-					@foreach (var fproduct in Model.FeaturedProducts)
-					{
-						<div class="col-sm-4">
-							<div class="product-image-wrapper">
-								<div class="single-products">
-									<div class="productinfo text-center">
-										<a asp-page="./Products/Details" asp-route-id="@fproduct.ProductID">
-											<div style="width: 250px; height: 250px; margin-left:50px; display: flex; justify-content: center; align-items: center;">
-												<img style="max-width: 100%; max-height: 100%; object-fit: contain;"
-													 src="/common/images/products/@fproduct.ImageUrl" alt="@fproduct.ProductName" />
-											</div>
-										</a>
-										<h2 class="product-price">@fproduct.Price.ToString("N0") VND</h2>
-										<h3 class="product-name">
-											@fproduct.ProductName
-										</h3>
-										<a href="#" class="btn btn-default add-to-cart">
-											<i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 padding-right">
+                <div class="features_items">
+                    <!--features_items-->
+                    <h2 class="title text-center">Sản phẩm nổi bật</h2>
+                    @foreach (var fproduct in Model.FeaturedProducts)
+                    {
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <a asp-page="./Products/Details" asp-route-id="@fproduct.ProductID">
+                                            <div style="width: 250px; height: 250px; margin-left:50px; display: flex; justify-content: center; align-items: center;">
+                                                <img style="max-width: 100%; max-height: 100%; object-fit: contain;"
+                                                     src="/common/images/products/@fproduct.ImageUrl" alt="@fproduct.ProductName" />
+                                            </div>
+                                        </a>
+                                        <h2 class="product-price">@fproduct.Price.ToString("N0") VND</h2>
+                                        <h3 class="product-name">
+                                            @fproduct.ProductName
+                                        </h3>
+                                        @* 										<a href="#" class="btn btn-default add-to-cart">
+                                    <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
+                                    </a> *@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-					}
-				</div><!--features_items-->
+                    }
+                </div><!--features_items-->
 
-				<div class="category-tab">
-					<!--category-tab-->
-					<div class="col-sm-12">
-						<ul class="nav nav-tabs">
-                        <li class="active"><a href="#combo" data-toggle="tab">Combo</a></li>
-							@foreach (var category in Model.Categories)
-							{
-								<li><a href="#@category.CategoryID" data-toggle="tab">@category.CategoryName</a></li>
-							}
-						</ul>
-					</div>
-					<!--Content-->
-					<div class="tab-content">
-						@foreach (var category in Model.Categories)
-						{
-							<div class="tab-pane fade" id="@category.CategoryID">
+                <div class="category-tab">
+                    <!--category-tab-->
+                    <div class="col-sm-12">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#combo" data-toggle="tab">Combo</a></li>
+                            @foreach (var category in Model.Categories)
+                            {
+                                <li><a href="#@category.CategoryID" data-toggle="tab">@category.CategoryName</a></li>
+                            }
+                        </ul>
+                    </div>
+                    <!--Content-->
+                    <div class="tab-content">
+                        @foreach (var category in Model.Categories)
+                        {
+                            <div class="tab-pane fade" id="@category.CategoryID">
 
-								@foreach (var product in category.Products)
-								{
-									
-									<div class="col-sm-3">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<div style="width: 250px; height: 250px; padding: 10px; display: flex; justify-content: center; align-items: center;">
-														<img style="max-width: 100%; max-height: 100%; object-fit: contain;"
-															 src="/common/images/products/@product.ImageUrl"
-															 alt="@product.ProductName" />
-													</div>
-													<h2>@product.Price.ToString("N0") VND</h2>
-													<h3 style="height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; font-size: 14px;">
-														@product.ProductName
-													</h3>
-                                                    													<a asp-page-handler="AddToCart" asp-page="/Cart" asp-route-ProductID="@product.ProductID" asp-route-Quantity="1" class="btn btn-default add-to-cart">
-														<i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng
-													</a>
-												</div>
-											</div>
-										</div>
-									</div>
-								}
-							</div>
-						}
-						<div class="tab-pane fade in active" id="combo">
-							@foreach (var combo in Model.Combos)
-							{
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<div style="width: 250px; height: 250px; padding: 10px; display: flex; justify-content: center; align-items: center;">
-													<img style="max-width: 100%; max-height: 100%; object-fit: contain;"
-														 src="~/common/images/products/@combo.ImageUrl" alt="@combo.ComboName" />
-												</div>
-												<h2>@combo.Price.ToString("N0") VND</h2>
-												<h3 style="height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; font-size: 14px;">
-													@combo.ComboName <br /> Set Combo 2-3 Người
-												</h3>
-												<a href="#" class="btn btn-default add-to-cart">
-													<i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng
-												</a>
-											</div>
-										</div>
-									</div>
-								</div>
+                                @foreach (var product in category.Products)
+                                {
+
+                                    <div class="col-sm-3">
+                                        <div class="product-image-wrapper">
+                                            <div class="single-products">
+                                                <div class="productinfo text-center">
+                                                    <a asp-page="./Products/Details" asp-route-id="@product.ProductID">
+                                                        <div style="width: 250px; height: 250px; padding: 10px; display: flex; justify-content: center; align-items: center;">
+                                                            <img style="max-width: 100%; max-height: 100%; object-fit: contain;"
+                                                                 src="/common/images/products/@product.ImageUrl"
+                                                                 alt="@product.ProductName" />
+                                                        </div>
+                                                    </a>
+                                                    <h2>@product.Price.ToString("N0") VND</h2>
+                                                    <h3 style="height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; font-size: 14px;">
+                                                        @product.ProductName
+                                                    </h3>
+                                                    <a asp-page-handler="AddToCart" asp-page="/Cart" asp-route-ProductID="@product.ProductID" asp-route-Quantity="1" class="btn btn-default add-to-cart">
+                                                        <i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        <div class="tab-pane fade in active" id="combo">
+                            @foreach (var combo in Model.Combos)
+                            {
+                                <div class="col-sm-3">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <div style="width: 250px; height: 250px; padding: 10px; display: flex; justify-content: center; align-items: center;">
+                                                    <img style="max-width: 100%; max-height: 100%; object-fit: contain;"
+                                                         src="~/common/images/products/@combo.ImageUrl" alt="@combo.ComboName" />
+                                                </div>
+                                                <h2>@combo.Price.ToString("N0") VND</h2>
+                                                <h3 style="height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; font-size: 14px;">
+                                                    @combo.ComboName <br /> Set Combo 2-3 Người
+                                                </h3>
+                                                <a href="#" class="btn btn-default add-to-cart">
+                                                    <i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                             }
                         </div>
@@ -225,102 +227,102 @@
                     <!--recommended_items-->
                     <h2 class="title text-center">sản phẩm được đề xuất</h2>
 
-					<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-						<div class="carousel-inner">
-							<div class="item active">
-								<div class="col-sm-4">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/common/images/products/Do_An_Vat/Snach khoai tây Lay's tôm hùm cay lon 105 g.png"
-													 alt="" />
-												<h2>28,400 VND</h2>
-												<p>Snach khoai tây Lay's tôm hùm cay lon 105 g</p>
-												<a href="#" class="btn btn-default add-to-cart">
-													<i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng
-												</a>
-											</div>
+                    <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="/common/images/products/Do_An_Vat/Snach khoai tây Lay's tôm hùm cay lon 105 g.png"
+                                                     alt="" />
+                                                <h2>28,400 VND</h2>
+                                                <p>Snach khoai tây Lay's tôm hùm cay lon 105 g</p>
+                                                <a href="#" class="btn btn-default add-to-cart">
+                                                    <i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng
+                                                </a>
+                                            </div>
 
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-4">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/common/images/products/Combo/Combo Heo Nướng.jpg"
-													 alt="" />
-												<h2>290,000 VND</h2>
-												<p>Combo Heo Nướng <br /> Set Combo 2-3 Người</p>
-												<a href="#" class="btn btn-default add-to-cart">
-													<i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng
-												</a>
-											</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="/common/images/products/Combo/Combo Heo Nướng.jpg"
+                                                     alt="" />
+                                                <h2>290,000 VND</h2>
+                                                <p>Combo Heo Nướng <br /> Set Combo 2-3 Người</p>
+                                                <a href="#" class="btn btn-default add-to-cart">
+                                                    <i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng
+                                                </a>
+                                            </div>
 
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-4">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/common/images/products/Do_An_Vat/Snack Lay Stax khoai tây vị tự nhiên 160g.png"
-													 alt="" />
-												<h2>38,600 VND</h2>
-												<p>Snack Lay Stax khoai tây vị tự nhiên 160g</p>
-												<a href="#" class="btn btn-default add-to-cart">
-													<i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng
-												</a>
-											</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="/common/images/products/Do_An_Vat/Snack Lay Stax khoai tây vị tự nhiên 160g.png"
+                                                     alt="" />
+                                                <h2>38,600 VND</h2>
+                                                <p>Snack Lay Stax khoai tây vị tự nhiên 160g</p>
+                                                <a href="#" class="btn btn-default add-to-cart">
+                                                    <i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng
+                                                </a>
+                                            </div>
 
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="item">
-								<div class="col-sm-4">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/common/images/products/Nuoc_Giai_Khat/Nước uống sữa trái cây bổ dưỡng hương cam Nutri Boost chai 1L.jpg"
-													 alt="" />
-												<h2>18,800 VND</h2>
-												<p>Nước uống sữa trái cây bổ dưỡng hương cam Nutri Boost chai 1L</p>
-												<a href="#" class="btn btn-default add-to-cart">
-													<i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng
-												</a>
-											</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="/common/images/products/Nuoc_Giai_Khat/Nước uống sữa trái cây bổ dưỡng hương cam Nutri Boost chai 1L.jpg"
+                                                     alt="" />
+                                                <h2>18,800 VND</h2>
+                                                <p>Nước uống sữa trái cây bổ dưỡng hương cam Nutri Boost chai 1L</p>
+                                                <a href="#" class="btn btn-default add-to-cart">
+                                                    <i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng
+                                                </a>
+                                            </div>
 
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-4">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/common/images/products/Combo/Lẩu Riêu Cua Bắp Bò Sườn Sụn.jpg"
-													 alt="" />
-												<h2>290,000 VND</h2>
-												<p>Lẩu Riêu Cua Bắp Bò Sườn Sụn<br /> Set Combo 2-3 Người</p>
-												<a href="#" class="btn btn-default add-to-cart">
-													<i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng
-												</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-4">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/common/images/products/Nuoc_Giai_Khat/Thùng 36 hộp sữa đậu nành Fami canxi ít đường 200ml.jpg"
-													 alt="" />
-												<h2>181,800 VND</h2>
-												<p>Thùng 36 hộp sữa đậu nành Fami canxi ít đường 200ml</p>
-												<a href="#" class="btn btn-default add-to-cart">
-													<i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng
-												</a>
-											</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="/common/images/products/Combo/Lẩu Riêu Cua Bắp Bò Sườn Sụn.jpg"
+                                                     alt="" />
+                                                <h2>290,000 VND</h2>
+                                                <p>Lẩu Riêu Cua Bắp Bò Sườn Sụn<br /> Set Combo 2-3 Người</p>
+                                                <a href="#" class="btn btn-default add-to-cart">
+                                                    <i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="/common/images/products/Nuoc_Giai_Khat/Thùng 36 hộp sữa đậu nành Fami canxi ít đường 200ml.jpg"
+                                                     alt="" />
+                                                <h2>181,800 VND</h2>
+                                                <p>Thùng 36 hộp sữa đậu nành Fami canxi ít đường 200ml</p>
+                                                <a href="#" class="btn btn-default add-to-cart">
+                                                    <i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng
+                                                </a>
+                                            </div>
 
                                         </div>
                                     </div>

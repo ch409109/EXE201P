@@ -46,8 +46,8 @@
                         <span class="price-amount">@String.Format("{0:N0} VND", Model.Product.Price)</span>
                     </div>
 
-                    <form method="get" class="purchase-form" action="/Cart">
-                        <input type="hidden" name="handler" value="AddToCart" />
+                    <!-- Thay đổi form trong Details.cshtml -->
+                    <form id="addToCartForm" class="purchase-form">
                         <input type="hidden" name="ProductID" value="@Model.Product.ProductID" />
                         <div class="quantity-control">
                             <label for="quantity">Số lượng:</label>
@@ -322,10 +322,10 @@
     }
 
     // Validation khi submit form
-    document.querySelector('.purchase-form').addEventListener('submit', function(e) {
+    document.querySelector('.purchase-form').addEventListener('submit', function (e) {
         const quantityInput = document.getElementById('quantity');
         const quantity = parseInt(quantityInput.value);
-        
+
         if (quantity < 1) {
             e.preventDefault();
             alert('Số lượng phải lớn hơn 0!');
@@ -333,5 +333,33 @@
             e.preventDefault();
             alert('Số lượng không được vượt quá 99!');
         }
+    });
+
+    $(document).ready(function () {
+        $('#addToCartForm').on('submit', function (e) {
+            e.preventDefault();
+
+            var productId = $('input[name="ProductID"]').val();
+            var quantity = $('#quantity').val();
+
+            $.ajax({
+                url: '/Cart?handler=AddToCart',
+                type: 'GET',
+                data: {
+                    ProductID: productId,
+                    Quantity: quantity
+                },
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error(response.message);
+                    }
+                },
+                error: function () {
+                    toastr.error('Có lỗi xảy ra khi thêm vào giỏ hàng');
+                }
+            });
+        });
     });
 </script>
