@@ -22,10 +22,6 @@ namespace ClickCart.Pages
 		public string Code { get; set; }
 		public IActionResult OnGet()
 		{
-			if (!User.Identity.IsAuthenticated)
-			{
-				return RedirectToPage("/Login"); // Chuyển hướng đến trang đăng nhập nếu chưa đăng nhập
-			}
 			var verificationCode = HttpContext.Session.GetString("VerificationCode");
 			if (string.IsNullOrEmpty(verificationCode))
 			{

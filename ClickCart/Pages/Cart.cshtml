@@ -29,93 +29,48 @@
 	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
 	<link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 </head><!--/head-->
 
 <body>
-	<header id="header">
-		<!--header-->
-		<div class="header_top">
-			<!--header_top-->
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-6">
-						<div class="contactinfo">
-							<ul class="nav nav-pills">
-								<li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-sm-6">
-						<div class="social-icons pull-right">
-							<ul class="nav navbar-nav">
-								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-								<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-							</ul>
-						</div>
-					</div>
+	<!-- Pop-up reminder -->
+	<div id="packageReminder" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Bạn có muốn nâng cấp gói không?</h4>
+				</div>
+				<div class="modal-body">
+					<p>Nhận nhiều ưu đãi hơn khi nâng cấp gói của bạn ngay hôm nay!</p>
+					<a href="#" class="btn btn-primary" id="viewPackages">Xem các gói</a>
 				</div>
 			</div>
-		</div><!--/header_top-->
+		</div>
+	</div>
 
-		<div class="header-middle">
-			<!--header-middle-->
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-4">
-						<div class="logo pull-left">
-							<a href="index.html">
-								<img style="width: 140px;" src="images/logo/logo-Photoroom.png"
-									 alt="" />
-							</a>
-						</div>
-					</div>
-					<div class="col-sm-8">
-						<div class="shop-menu pull-right">
-							<ul class="nav navbar-nav">
-								<li><a href="profile.html"><i class="fa fa-user"></i>Tài khoản</a></li>
-								<li><a class="active" href="cart.html"><i class="fa fa-shopping-cart"></i>Giỏ hàng</a></li>
-								<li><a href="login.html"><i class="fa fa-unlock"></i>Đăng xuất</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div><!--/header-middle-->
+	<!-- Banner giới thiệu gói -->
+	<div class="container text-center" style="margin-top: 20px;">
+		<a href="#" id="packageBanner">
+			<img src="~/common/images/banner/BannerSale.jpg" alt="Gói ưu đãi" class="img-responsive" style="max-width: 100%; height: auto;">
+		</a>
+	</div>
 
-		<div class="header-bottom">
-			<!--header-bottom-->
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-9">
-						<div class="navbar-header">
-							<button type="button" class="navbar-toggle" data-toggle="collapse"
-									data-target=".navbar-collapse">
-								<span class="sr-only">Toggle navigation</span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-							</button>
-						</div>
-						<div class="mainmenu pull-left">
-							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.html">Trang chủ</a></li>
-								<li><a href="shop.html">Sản phẩm</a></li>
-								<li><a href="contact-us.html">Liên hệ</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div><!--/header-bottom-->
-	</header><!--/header-->
-	@{
-		ViewData["Title"] = "Cart";
-		Layout = "_UserLayout";
-	}
+	<script>
+		$(document).ready(function () {
+			console.log("Document loaded");
+			if ($("#packageReminder").length) {
+				console.log("Popup found, showing...");
+				$('#packageReminder').modal('show');
+			} else {
+				console.log("Popup not found!");
+			}
+		});
+	</script>
+
 
 	<section id="cart_items">
 		<div class="container">
@@ -142,7 +97,7 @@
 						{
 							<tr>
 								<td class="cart_product">
-									<a href=""><img width="110px" height="110px" src="@item.Product.ImageUrl" alt=""></a>
+									<a href=""><img width="110px" height="110px" src="/common/images/products/@item.Product.ImageUrl" alt=""></a>
 								</td>
 								<td class="cart_description">
 									<h4><a href="">@item.Product.ProductName</a></h4>
@@ -214,78 +169,6 @@
 			</div>
 		</div>
 	</section><!--/#do_action-->
-
-	<footer id="footer">
-		<!--Footer-->
-		<div class="footer-top">
-			<div class="container">
-			</div>
-		</div>
-
-		<div class="footer-widget">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-2">
-						<div class="single-widget">
-							<h2>Dịch vụ</h2>
-							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">Trợ giúp trực tuyến</a></li>
-								<li><a href="#">Liên hệ với chúng tôi</a></li>
-								<li><a href="#">FAQ’s</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-sm-2">
-						<div class="single-widget">
-							<h2>Chính sách</h2>
-							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">Điều khoản sử dụng</a></li>
-								<li><a href="#">Chính sách quyền riêng tư</a></li>
-								<li><a href="#">Chính sách hoàn tiền</a></li>
-								<li><a href="#">Hệ thống thanh toán</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-sm-2">
-						<div class="single-widget">
-							<h2>Về ClickCart</h2>
-							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">Thông tin</a></li>
-								<li><a href="#">Địa chỉ cửa hàng</a></li>
-								<li><a href="#">Bản quyền</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-sm-3 col-sm-offset-1">
-						<div class="single-widget">
-							<h2>Về ClickCart</h2>
-							<form action="#" class="searchform">
-								<input type="text" placeholder="Địa chỉ email của bạn" />
-								<button type="submit" class="btn btn-default">
-									<i class="fa fa-arrow-circle-o-right"></i>
-								</button>
-								<p>
-									Nhận thông tin cập nhật mới nhất từ
-									trang web của chúng tôi và tự cập nhật...
-								</p>
-							</form>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-
-		<div class="footer-bottom">
-			<div class="container">
-				<div class="row">
-				</div>
-			</div>
-		</div>
-
-	</footer><!--/Footer-->
-
-
 
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>

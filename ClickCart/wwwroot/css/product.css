@@ -1,0 +1,217 @@
+﻿/* Cải thiện giao diện của sidebar danh mục */
+.left-sidebar {
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+    .left-sidebar h2 {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+.panel-group .panel {
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.panel-group .panel-default .panel-heading {
+    background-color: #f3f3f3;
+    border: 1px solid #ddd;
+    padding: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+    .panel-group .panel-default .panel-heading a {
+        font-size: 16px;
+        color: #333;
+        text-decoration: none;
+        display: block;
+        padding: 5px 10px;
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+        .panel-group .panel-default .panel-heading a:hover {
+            color: #ffffff;
+            background-color: #FF6B00; /* Màu nền khi hover */
+            transform: scale(1.05); /* Phóng to nhẹ khi hover */
+        }
+
+    .panel-group .panel-default .panel-heading:hover {
+        background-color: #FF6B00;
+        box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3); /* Thêm bóng mờ khi hover */
+        transform: translateY(-2px); /* Đẩy lên một chút khi hover */
+    }
+/* Cải thiện giao diện của pagination */
+.pagination {
+    margin-top: 30px;
+    justify-content: center;
+    display: flex;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+    .pagination .page-item {
+        margin: 0 5px;
+        transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+        .pagination .page-item .page-link {
+            color: #333;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 5px;
+            text-decoration: none;
+            display: block;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+            /* Hover effect for page links */
+            .pagination .page-item .page-link:hover {
+                color: #fff;
+                background-color: #FF6B00; /* Màu nền khi hover */
+                border-color: #FF6B00;
+                transform: translateY(-2px); /* Đẩy lên một chút khi hover */
+                box-shadow: 0 4px 10px rgba(255, 107, 0, 0.3); /* Thêm bóng mờ khi hover */
+            }
+
+        /* Active page style */
+        .pagination .page-item.active .page-link {
+            color: #fff;
+            background-color: #FF6B00;
+            border-color: #FF6B00;
+            transform: translateY(-2px); /* Đẩy lên một chút */
+            box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3); /* Thêm bóng mờ cho trang đang active */
+        }
+
+        /* Disabled page link */
+        .pagination .page-item.disabled .page-link {
+            color: #ccc;
+            background-color: #f8f8f8;
+            border-color: #ddd;
+            pointer-events: none; /* Vô hiệu hóa sự kiện click */
+        }
+
+        /* Mũi tên phân trang */
+        .pagination .page-item .page-link:before {
+            content: '\00ab'; /* Ký tự mũi tên trái */
+            font-size: 16px;
+            margin-right: 5px;
+        }
+
+        .pagination .page-item .page-link:after {
+            content: '\00bb'; /* Ký tự mũi tên phải */
+            font-size: 16px;
+            margin-left: 5px;
+        }
+/* Style for the search and price filter forms */
+/* Styling for the entire form */
+.search-filter-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Spacing between the input fields */
+.form-row {
+    margin-bottom: 15px;
+}
+
+/* Styling for the input and select fields */
+.form-control {
+    padding: 10px;
+    font-size: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    transition: border-color 0.3s ease;
+}
+
+    .form-control:focus {
+        border-color: #FF6B00;
+        box-shadow: 0 0 5px rgba(255, 107, 0, 0.5);
+    }
+
+/* Label styling */
+.form-label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    color: #333;
+}
+
+/* Button styling */
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: #FF6B00;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+    .btn:hover {
+        background-color: #e65c00; /* Darker orange on hover */
+    }
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .search-filter-form {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .form-row {
+        margin-bottom: 10px;
+    }
+}
+/* Button Styling */
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: #FF6B00;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+/* Button Hover Effect */
+.btn:hover {
+    background-color: #e65c00; /* Darker shade when hovered */
+    transform: translateY(-3px); /* Slight upward movement */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+}
+
+/* Button Active/Pressed Effect */
+.btn:active {
+    background-color: #c75c00; /* Even darker shade on click */
+    transform: translateY(1px); /* Slight downward movement to simulate pressing */
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1); /* Reduced shadow for pressed effect */
+}
+
+/* Focus effect (for accessibility) */
+.btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(255, 107, 0, 0.5); /* Orange shadow around the button */
+}
+
+/* Disabled Button */
+.btn:disabled {
+    background-color: #f3f3f3;
+    color: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+

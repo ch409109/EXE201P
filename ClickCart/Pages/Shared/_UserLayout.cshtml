@@ -23,6 +23,10 @@
 	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
 	<link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 </head><!--/head-->
 
 <body>
@@ -76,7 +80,8 @@
 									else if (User.IsInRole("Customer"))
 									{
 										<li><a asp-page="/Customer/UserProfile"><i class="fa fa-user"></i> Tài khoản</a></li>
-										<li><a asp-page="/Customer/Cart"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+										<li><a asp-page="/Cart"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+										<li><a asp-page="/Customer/OrderHistory"><i class="fa fa-shopping-cart"></i> Lịch sử mua hàng</a></li>
 									}
 
 									<li><a asp-page="/Logout"><i class="fa fa-sign-out"></i> Đăng xuất</a></li>
@@ -200,6 +205,12 @@
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.prettyPhoto.js"></script>
 	<script src="js/main.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	@* <script type="text/javascript">
+		toastr.success('@TempData["Success"]');
+		toastr.error('@TempData["Error"]');
+	</script> *@
+`
 </body>
 
 </html>

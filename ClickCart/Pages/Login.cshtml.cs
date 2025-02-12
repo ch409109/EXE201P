@@ -104,7 +104,7 @@ namespace ClickCart.Pages
 				return Page();
 			}
 			UserSignUp.PasswordHash = PasswordHelper.ToHashPassword(UserSignUp.PasswordHash);
-			UserSignUp.Role = "User";
+			UserSignUp.Role = "Customer";
 			UserSignUp.CreatedAt = DateTime.Now;
 			string verificationCode = GenerateVerificationCode();
 			try

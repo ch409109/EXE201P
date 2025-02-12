@@ -20,7 +20,7 @@ namespace ClickCart.Pages
 		public void OnGet()
 		{
 			FeaturedProducts = _context.Products.OrderByDescending(p => p.Stock).Take(6).ToList();
-			Categories = _context.Categories.Include(p => p.Products.Take(4)).ToList();
+			Categories = _context.Categories.Include(p => p.Products.Take(8)).ToList();
 			Combos = _context.Combos.Take(4).ToList();
 		}
 	}
