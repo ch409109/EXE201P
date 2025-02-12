@@ -87,3 +87,19 @@
 		}
 	</div>
 </section>
+
+<script>
+	document.querySelectorAll('.toggle-details').forEach(button => {
+		button.addEventListener('click', function () {
+			const orderId = this.getAttribute('data-order-id');
+			const detailsRow = document.getElementById(`order-details-${orderId}`);
+
+			// Toggle display style
+			if (detailsRow.style.display === 'none') {
+				detailsRow.style.display = 'table-row';
+			} else {
+				detailsRow.style.display = 'none';
+			}
+		});
+	});
+</script>

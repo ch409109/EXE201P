@@ -22,13 +22,13 @@ namespace ClickCart.Pages
         {
             return int.TryParse(User.FindFirstValue("UserId"), out var userId) ? userId : 0;
         }
-        public async Task<IActionResult>  OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
             var userId = GetUserId();
             if (userId == 0)
             {
                 return RedirectToPage("/Login");
-                
+
             }
             var cart = await _context.Carts.Include(c => c.CartItems).ThenInclude(ci => ci.Product)
                                            .FirstOrDefaultAsync(c => c.UserID == userId);
@@ -49,6 +49,19 @@ namespace ClickCart.Pages
             // Nếu có ProductID trong QueryString thì thêm vào giỏ hàng
             if (ProductID.HasValue && Quantity.HasValue)
             {
+                if (Quantity.Value <= 0 || Quantity.Value > 99)
+                {
+                    TempData["Error"] = "Số lượng không hợp lệ!";
+                    return RedirectToPage();
+                }
+
+                var product = await _context.Products.FindAsync(ProductID.Value);
+                if (product == null)
+                {
+                    TempData["Error"] = "Sản phẩm không tồn tại!";
+                    return RedirectToPage();
+                }
+
                 var cart = await _context.Carts.Include(c => c.CartItems)
                                                .FirstOrDefaultAsync(c => c.UserID == userId);
                 if (cart == null)
@@ -60,14 +73,27 @@ namespace ClickCart.Pages
                 var cartItem = cart.CartItems.FirstOrDefault(ci => ci.ProductID == ProductID.Value);
                 if (cartItem != null)
                 {
+                    if (cartItem.Quantity + Quantity.Value > 99)
+                    {
+                        TempData["Error"] = "Tổng số lượng không được vượt quá 99!";
+                        return RedirectToPage();
+                    }
                     cartItem.Quantity += Quantity.Value;
                 }
                 else
                 {
-                    cart.CartItems.Add(new CartItem { ProductID = ProductID.Value, Quantity = Quantity.Value });
+                    cart.CartItems.Add(new CartItem { CartID = cart.CartID, ProductID = ProductID.Value, Quantity = Quantity.Value });
                 }
 
-                await _context.SaveChangesAsync();
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    TempData["Success"] = "Đã thêm sản phẩm vào giỏ hàng!";
+                }
+                catch (Exception)
+                {
+                    TempData["Error"] = "Có lỗi xảy ra khi thêm vào giỏ hàng!";
+                }
                 return RedirectToPage(); // Sau khi thêm xong, load lại trang Cart
             }
 
