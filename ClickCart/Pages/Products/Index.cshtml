@@ -33,101 +33,58 @@
 		</svg>
 	</div>
 </section>
-<!--Thanh searchbar-->
-<section id="search-bar" class="my-4">
+<section id="search-price-filter" style="margin-bottom: 20px;">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-8 offset-md-2">
-				<form method="get" action="/Customer/Products/Search">
-					<div class="input-group">
-						<input type="text" name="query" class="form-control" placeholder="Nhập tên sản phẩm cần tìm..." aria-label="Search">
-						<div class="input-group-append">
-							<button class="btn btn-primary" type="submit">
-								<i class="fa fa-search"></i> Tìm kiếm
-							</button>
-						</div>
-					</div>
-				</form>
+			<div class="col-sm-12">
+				<div class="search-price-filter-form">
+					<!-- Search form -->
+					<form action="@Url.Page("Index")" method="get" class="search-form">
+						<input type="text" name="search" class="form-control" placeholder="Tìm kiếm sản phẩm..." value="@Request.Query["search"]" />
+					</form>
+
+					<!-- Price range selector -->
+					<form action="@Url.Page("Index")" method="get" class="price-range-form">
+						<select name="priceRange" class="form-control">
+							<option value="0-100000">Dưới 100,000 VND</option>
+							<option value="100000-200000">Trên 100,000 VND</option>
+							<option value="200000-500000">Trên 200,000 VND</option>
+							<option value="500000-1000000">Trên 500,000 VND</option>
+						</select>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
 </section>
+
 <section>
 	<div class="container">
 		<div class="row">
+			<!-- Sidebar for categories -->
 			<div class="col-sm-3">
 				<div class="left-sidebar">
 					<h2>Danh mục</h2>
 					<div class="panel-group category-products" id="accordian">
-						<!--category-productsr-->
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title"><a href="#">Đồ Uống</a></h4>
+						@foreach (var category in Model.Categories)
+						{
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a href="@Url.Page("Index", new { categoryId = category.CategoryID })">@category.CategoryName</a>
+									</h4>
+								</div>
 							</div>
-						</div>
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title"><a href="#">đồ ăn vặt</a></h4>
-							</div>
-						</div>
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title"><a href="#">gia vị</a></h4>
-							</div>
-						</div>
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title"><a href="#">mì ăn liền</a></h4>
-							</div>
-						</div>
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title"><a href="#">combo</a></h4>
-							</div>
-						</div>
-					</div><!--/category-productsr-->
-
-					<div class="shipping text-center">
-						<!--shipping-->
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270 329">
-							<!-- Background -->
-							<rect width="270" height="329" fill="#1E88E5" />
-							<rect x="0" y="0" width="270" height="329" fill="url(#gradient1)" />
-
-							<!-- Gradient definition -->
-							<defs>
-								<linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-									<stop offset="0%" style="stop-color:#1E88E5;stop-opacity:1" />
-									<stop offset="100%" style="stop-color:#64B5F6;stop-opacity:0.8" />
-								</linearGradient>
-							</defs>
-
-							<!-- Main text -->
-							<text x="20" y="80" font-family="Arial" font-size="24" font-weight="bold"
-								  fill="#FFFFFF">HAPPY HOUR</text>
-							<text x="20" y="120" font-family="Arial" font-size="36" font-weight="bold"
-								  fill="#FFFFFF">GIẢM 20%</text>
-							<text x="20" y="160" font-family="Arial" font-size="18" fill="#FFFFFF">15H - 17H</text>
-							<text x="20" y="190" font-family="Arial" font-size="16" fill="#FFFFFF">Mỗi ngày</text>
-
-							<!-- Decorative elements -->
-							<rect x="20" y="220" width="230" height="2" fill="#FFFFFF" opacity="0.3" />
-
-							<!-- CTA text -->
-							<text x="20" y="280" font-family="Arial" font-size="18" fill="#FFFFFF">
-								Đặt hàng
-								ngay!
-							</text>
-						</svg>
-					</div><!--/shipping-->
-
+						}
+					</div>
 				</div>
 			</div>
 
+			<!-- Main product display -->
 			<div class="col-sm-9 padding-right">
 				<div class="features_items">
-					<!--features_items-->
-					<h2 class="title text-center">sản phẩm</h2>
+					<h2 class="title text-center">Sản phẩm</h2>
+
 					@if (Model.Products.Any())
 					{
 						@foreach (var product in Model.Products)
@@ -136,21 +93,19 @@
 								<div class="product-image-wrapper">
 									<div class="single-products">
 										<div class="productinfo text-center">
-											<img style="width:250px" src="/common/images/products/@product.ImageUrl" alt="@product.ProductName" />
-											<h2>@product.Price VND</h2>
-											<p>@product.ProductName</p>
+											<div style="width: 250px; height: 250px; padding: 10px; display: flex; justify-content: center; align-items: center; background-color: #f3f3f3;">
+												<img style="max-width: 100%; max-height: 100%; object-fit: contain;"
+													 src="/common/images/products/@product.ImageUrl"
+													 alt="@product.ProductName" />
+											</div>
+											<h2>@product.Price.ToString("N0") VND</h2>
+											<h3 style="height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; font-size: 14px;">
+												@product.ProductName
+											</h3>
+
 											<a href="#" class="btn btn-default add-to-cart">
 												<i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
 											</a>
-										</div>
-										<div class="product-overlay">
-											<div class="overlay-content">
-												<h2>@product.Price VND</h2>
-												<p>@product.ProductName</p>
-												<a asp-page-handler="AddToCart" asp-page="/Cart" asp-route-ProductID="@product.ProductID" asp-route-Quantity="1" class="btn btn-default add-to-cart">
-													<i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
-												</a>
-											</div>
 										</div>
 									</div>
 								</div>
@@ -161,35 +116,36 @@
 					{
 						<p class="text-center">Không có sản phẩm nào để hiển thị.</p>
 					}
-					</div>
-					<!-- Pagination -->
-					<ul class="pagination justify-content-center">
-						@if (Model.CurrentPage > 1)
-						{
-							<li class="page-item">
-								<a class="page-link" href="@Url.Page("Index", new { pageNumber = Model.CurrentPage - 1 })">&laquo; Trước</a>
-							</li>
-						}
+				</div>
 
-						@for (int i = 1; i <= Model.TotalPages; i++)
-						{
-							<li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-								<a class="page-link" href="@Url.Page("Index", new { pageNumber = i })">@i</a>
-							</li>
-						}
+				<!-- Pagination -->
+				<ul class="pagination justify-content-center">
+					@if (Model.CurrentPage > 1)
+					{
+						<li class="page-item">
+							<a class="page-link" href="@Url.Page("Index", new { pageNumber = Model.CurrentPage - 1, categoryId = Model.CategoryId })"> Trước</a>
+						</li>
+					}
 
-						@if (Model.CurrentPage < Model.TotalPages)
-						{
-							<li class="page-item">
-								<a class="page-link" href="@Url.Page("Index", new { pageNumber = Model.CurrentPage + 1 })">Tiếp &raquo;</a>
-							</li>
-						}
-					</ul>
-				</div><!--features_items-->
+					@for (int i = 1; i <= Model.TotalPages; i++)
+					{
+						<li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+							<a class="page-link" href="@Url.Page("Index", new { pageNumber = i, categoryId = Model.CategoryId })">@i</a>
+						</li>
+					}
+
+					@if (Model.CurrentPage < Model.TotalPages)
+					{
+						<li class="page-item">
+							<a class="page-link" href="@Url.Page("Index", new { pageNumber = Model.CurrentPage + 1, categoryId = Model.CategoryId })">Tiếp &raquo;</a>
+						</li>
+					}
+				</ul>
 			</div>
 		</div>
 	</div>
 </section>
+
 
 <script src="js/jquery.js"></script>
 <script src="js/price-range.js"></script>
@@ -197,3 +153,4 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.prettyPhoto.js"></script>
 <script src="js/main.js"></script>
+<link href="~/css/product.css" rel="stylesheet" />
