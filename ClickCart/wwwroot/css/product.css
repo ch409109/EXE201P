@@ -111,56 +111,107 @@
             margin-left: 5px;
         }
 /* Style for the search and price filter forms */
-#search-price-filter {
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.search-price-filter-form {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 15px;
-}
-
-.search-form input {
-    padding: 10px;
-    width: 250px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.3s ease;
-}
-
-    .search-form input:focus {
-        border-color: #FF6B00;
-    }
-
-.price-range-form select {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    font-size: 10px;
-    outline: none;
+/* Styling for the entire form */
+.search-filter-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
     background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Spacing between the input fields */
+.form-row {
+    margin-bottom: 15px;
+}
+
+/* Styling for the input and select fields */
+.form-control {
+    padding: 10px;
+    font-size: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
     transition: border-color 0.3s ease;
 }
 
-    .price-range-form select:focus {
+    .form-control:focus {
         border-color: #FF6B00;
+        box-shadow: 0 0 5px rgba(255, 107, 0, 0.5);
     }
 
-/* Add some spacing for mobile responsiveness */
+/* Label styling */
+.form-label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    color: #333;
+}
+
+/* Button styling */
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: #FF6B00;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+    .btn:hover {
+        background-color: #e65c00; /* Darker orange on hover */
+    }
+
+/* Responsive design for smaller screens */
 @media (max-width: 768px) {
-    .search-price-filter-form {
-        flex-direction: column;
-        align-items: stretch;
+    .search-filter-form {
+        width: 100%;
+        padding: 15px;
     }
 
-    .search-form input,
-    .price-range-form select {
-        width: 100%;
+    .form-row {
         margin-bottom: 10px;
     }
 }
+/* Button Styling */
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: #FF6B00;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+/* Button Hover Effect */
+.btn:hover {
+    background-color: #e65c00; /* Darker shade when hovered */
+    transform: translateY(-3px); /* Slight upward movement */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+}
+
+/* Button Active/Pressed Effect */
+.btn:active {
+    background-color: #c75c00; /* Even darker shade on click */
+    transform: translateY(1px); /* Slight downward movement to simulate pressing */
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1); /* Reduced shadow for pressed effect */
+}
+
+/* Focus effect (for accessibility) */
+.btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(255, 107, 0, 0.5); /* Orange shadow around the button */
+}
+
+/* Disabled Button */
+.btn:disabled {
+    background-color: #f3f3f3;
+    color: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+

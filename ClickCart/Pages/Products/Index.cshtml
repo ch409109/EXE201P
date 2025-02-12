@@ -39,19 +39,35 @@
 			<div class="col-sm-12">
 				<div class="search-price-filter-form">
 					<!-- Search form -->
-					<form action="@Url.Page("Index")" method="get" class="search-form">
-						<input type="text" name="search" class="form-control" placeholder="Tìm kiếm sản phẩm..." value="@Request.Query["search"]" />
+					<!-- Search and Filter Form -->
+					<form method="post" class="search-filter-form">
+						<div class="form-row">
+							<!-- Search Form -->
+							<div class="col-md-6 mb-3">
+								<label for="search" class="form-label">Tìm kiếm sản phẩm</label>
+								<input type="text" name="search" class="form-control" id="search" placeholder="Nhập tên sản phẩm..." value="@Request.Query["search"]" />
+							</div>
+
+							<!-- Price Range Selector -->
+							<div class="col-md-6 mb-3">
+								<label for="priceRange" class="form-label">Khoảng giá</label>
+								<select name="priceRange" class="form-control" id="priceRange">
+									<option value="0-100000">Dưới 100,000 VND</option>
+									<option value="100000-200000">Trên 100,000 VND</option>
+									<option value="200000-500000">Trên 200,000 VND</option>
+									<option value="500000-1000000">Trên 500,000 VND</option>
+								</select>
+							</div>
+						</div>
+
+						<!-- Submit Button -->
+						<div class="form-row">
+							<div class="col-12 text-center">
+								<button type="submit" class="btn btn-primary">Tìm kiếm</button>
+							</div>
+						</div>
 					</form>
 
-					<!-- Price range selector -->
-					<form action="@Url.Page("Index")" method="get" class="price-range-form">
-						<select name="priceRange" class="form-control">
-							<option value="0-100000">Dưới 100,000 VND</option>
-							<option value="100000-200000">Trên 100,000 VND</option>
-							<option value="200000-500000">Trên 200,000 VND</option>
-							<option value="500000-1000000">Trên 500,000 VND</option>
-						</select>
-					</form>
 				</div>
 			</div>
 		</div>
@@ -95,8 +111,8 @@
 										<div class="productinfo text-center">
 											<div style="width: 250px; height: 250px; padding: 10px; display: flex; justify-content: center; align-items: center; background-color: #f3f3f3;">
 												<img style="max-width: 100%; max-height: 100%; object-fit: contain;"
-													 src="/common/images/products/@product.ImageUrl"
-													 alt="@product.ProductName" />
+												src="/common/images/products/@product.ImageUrl"
+												alt="@product.ProductName" />
 											</div>
 											<h2>@product.Price.ToString("N0") VND</h2>
 											<h3 style="height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; font-size: 14px;">
@@ -126,18 +142,21 @@
 							<a class="page-link" href="@Url.Page("Index", new { pageNumber = Model.CurrentPage - 1, categoryId = Model.CategoryId })"> Trước</a>
 						</li>
 					}
-
+					@{
+						var id = HttpContext.Session.GetInt32("CategoryId");
+					}
 					@for (int i = 1; i <= Model.TotalPages; i++)
 					{
 						<li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-							<a class="page-link" href="@Url.Page("Index", new { pageNumber = i, categoryId = Model.CategoryId })">@i</a>
+							
+							<a class="page-link" href="@Url.Page("Index", new { pageNumber = i, categoryId = id })">@i</a>
 						</li>
 					}
 
 					@if (Model.CurrentPage < Model.TotalPages)
 					{
 						<li class="page-item">
-							<a class="page-link" href="@Url.Page("Index", new { pageNumber = Model.CurrentPage + 1, categoryId = Model.CategoryId })">Tiếp &raquo;</a>
+							<a class="page-link" href="@Url.Page("Index", new { pageNumber = Model.CurrentPage + 1, categoryId = @id })">Tiếp &raquo;</a>
 						</li>
 					}
 				</ul>
