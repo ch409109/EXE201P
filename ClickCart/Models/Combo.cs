@@ -12,11 +12,10 @@ namespace ClickCart.Models
 
 		[Required]
 		public int Price { get; set; }
+		[Required]
 
 		public string Description { get; set; }
 
 		public string ImageUrl { get; set; }
-
-		public ICollection<ComboProduct> ComboProducts { get; set; }
 	}
 }
