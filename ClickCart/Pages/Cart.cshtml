@@ -3,32 +3,8 @@
 @{
 	ViewData["Title"] = "Cart";
 	Layout = "_UserLayout";
-	
 }
-<!DOCTYPE html>
-<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<title>Cart | E-Shopper</title>
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/font-awesome.min.css" rel="stylesheet">
-	<link href="css/prettyPhoto.css" rel="stylesheet">
-	<link href="css/price-range.css" rel="stylesheet">
-	<link href="css/animate.css" rel="stylesheet">
-	<link href="css/main.css" rel="stylesheet">
-	<link href="css/responsive.css" rel="stylesheet">
-	<!--[if lt IE 9]>
-	<script src="js/html5shiv.js"></script>
-	<script src="js/respond.min.js"></script>
-	<![endif]-->
-	<link rel="shortcut icon" href="images/ico/favicon.ico">
-	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -61,13 +37,13 @@
 
 	<script>
 		$(document).ready(function () {
-			console.log("Document loaded");
-			if ($("#packageReminder").length) {
-				console.log("Popup found, showing...");
-				$('#packageReminder').modal('show');
-			} else {
-				console.log("Popup not found!");
-			}
+		console.log("Document loaded");
+		if ($("#packageReminder").length) {
+		console.log("Popup found, showing...");
+		$('#packageReminder').modal('show');
+		} else {
+		console.log("Popup not found!");
+		}
 		});
 	</script>
 
@@ -80,100 +56,76 @@
 					<li class="active">Giỏ hàng</li>
 				</ol>
 			</div>
-			<div class="table-responsive cart_info">
-				<table class="table table-condensed">
-					<thead>
-						<tr class="cart_menu">
-							<td class="image">Sản phẩm</td>
-							<td class="description"></td>
-							<td class="price">Giá</td>
-							<td class="quantity">Số lượng</td>
-							<td class="total">Tổng tiền</td>
-							<td></td>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach (var item in Model.CartItems)
-						{
-							<tr>
-								<td class="cart_product">
-									<a href=""><img width="110px" height="110px" src="/common/images/products/@item.Product.ImageUrl" alt=""></a>
-								</td>
-								<td class="cart_description">
-									<h4><a href="">@item.Product.ProductName</a></h4>
-								</td>
-								<td class="cart_price">
-									<p>@item.Product.Price VND</p>
-								</td>
-								<td class="cart_quantity">
-									<div class="cart_quantity_button">
-										<form method="post" asp-page-handler="Update">
-											<input type="hidden" name="cartItemId" value="@item.CartItemID" />
-											<input class="cart_quantity_input" type="number" name="quantity" value="@item.Quantity" min="1" />
-											<button type="submit">Cập nhật</button>
-										</form>
-									</div>
-								</td>
-								<td class="cart_total">
-									<p class="cart_total_price">@(item.Product.Price * item.Quantity) VND</p>
-								</td>
-								<td class="cart_delete">
-									<form method="post" asp-page-handler="Delete">
-										<input type="hidden" name="cartItemId" value="@item.CartItemID" />
-										<button type="submit" class="cart_quantity_delete"><i class="fa fa-times"></i></button>
-									</form>
-								</td>
-							</tr>
-						}
-					</tbody>
-				</table>
+			<div class="container mt-5">
+				<h2 class="mb-4">Giỏ hàng của bạn</h2>
+
+				@if (Model.CartItems.Count == 0)
+				{
+					<p class="alert alert-warning">Giỏ hàng của bạn hiện đang trống.</p>
+				}
+				else
+				{
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<thead class="table-dark">
+								<tr>
+									<th class="text-center">Sản phẩm</th>
+									<th class="text-center">Tên sản phẩm</th>
+									<th class="text-center">Đơn Giá</th>
+									<th class="text-center">Số lượng</th>
+									<th class="text-center">Thành tiền</th>
+									<th class="text-center">Thao tác</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model.CartItems)
+								{
+									<tr>
+										<td class="text-center">
+											<img width="90px" height="90px" src="/common/images/products/@item.Product.ImageUrl" alt="@item.Product.ProductName" />
+										</td>
+										<td>
+											<h5><a href="#">@item.Product.ProductName</a></h5>
+										</td>
+										<td class="text-center">@item.Product.Price.ToString("N0") VND</td>
+										<td class="text-center">
+											<form method="post" asp-page-handler="Update">
+												<input type="hidden" name="cartItemId" value="@item.CartItemID" />
+												<input class="form-control form-control-sm text-center" type="number" name="quantity" value="@item.Quantity" min="1" />
+												<button type="submit" class="btn btn-warning btn-sm mt-2 w-100">Cập nhật</button>
+											</form>
+										</td>
+										<td class="text-center">
+											<p>@{
+													var totalPrice = item.Product.Price * item.Quantity;
+												}
+												@totalPrice.ToString("N0") VND
+											</p>
+										</td>
+										<td class="text-center">
+											<form method="post" asp-page-handler="Delete">
+												<input type="hidden" name="cartItemId" value="@item.CartItemID" />
+												<button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Xóa</button>
+											</form>
+										</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+
+					<div class="d-flex justify-content-between mt-4">
+						<h4>Tổng tiền: @Model.TotalPrice.ToString("N0") VND</h4>
+						<a href="/Checkout" class="btn btn-primary">Tiến hành thanh toán</a>
+					</div>
+				}
 			</div>
 		</div>
 	</section>
-
-	<section id="do_action">
-		<div class="container">
-			<div class="heading">
-				<h3>Bạn muốn làm gì tiếp theo?</h3>
-			</div>
-			<div class="row">
-				<div class="col-sm-6">
-					<div class="total_area">
-						<ul>
-							<li>Tổng tiền <span>@Model.TotalPrice VND</span></li>
-						</ul>
-						<a class="btn btn-default check_out" href="checkout.html">Thanh toán</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-
-	<section id="do_action">
-		<div class="container">
-			<div class="heading">
-				<h3>Bạn muốn làm gì tiếp theo?</h3>
-			</div>
-			<div class="row">
-				<div class="col-sm-6">
-					<div class="total_area">
-						<ul>
-							<li>Cart Sub Total <span>71.600 VND</span></li>
-							<li>Shipping Cost <span>20.000 VND</span></li>
-							<li>Total <span>91.600 VND</span></li>
-						</ul>
-						<a class="btn btn-default check_out" href="checkout.html">Thanh toán</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section><!--/#do_action-->
-
+	<br style="margin:10px"/>
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.scrollUp.min.js"></script>
 	<script src="js/jquery.prettyPhoto.js"></script>
 	<script src="js/main.js"></script>
 </body>
-</html>

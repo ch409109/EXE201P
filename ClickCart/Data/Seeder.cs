@@ -1259,6 +1259,8 @@ namespace ClickCart.Data
 					OrderID = 1,
 					UserID = 7, // Tương ứng với user "TungUser"
 					TotalAmount = 60000,
+					FullName = "Nguyễn Việt Tùng",
+					PhoneNumber = "0123456789",
 					ShippingAddress = "123 Main Street, Hanoi",
 					PaymentStatus = "Paid",
 					PaymentGateway = "Credit Card",
@@ -1268,6 +1270,8 @@ namespace ClickCart.Data
 				{
 					OrderID = 2,
 					UserID = 8, // Tương ứng với user "ToanUser"
+					FullName = "Nguyễn Văn Toàn",
+					PhoneNumber = "0123456789",
 					TotalAmount = 65000,
 					ShippingAddress = "456 Secondary Street, HCM",
 					PaymentStatus = "Pending",
@@ -1278,6 +1282,8 @@ namespace ClickCart.Data
 				{
 					OrderID = 3,
 					UserID = 9, // Tương ứng với user "CuongUser"
+					FullName = "Phạm Xuân Cường",
+					PhoneNumber = "0123456789",
 					TotalAmount = 250000,
 					ShippingAddress = "789 Tertiary Avenue, Da Nang",
 					PaymentStatus = "Paid",
