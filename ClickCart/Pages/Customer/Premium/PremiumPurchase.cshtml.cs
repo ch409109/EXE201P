@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ClickCart.Pages.Payment
+namespace ClickCart.Pages.Customer.Premium
 {
-    public class PaymentCallbackModel : PageModel
+    public class PremiumPurchaseModel : PageModel
     {
         public void OnGet()
         {

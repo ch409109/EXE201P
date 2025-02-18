@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ClickCart.Pages.Payment
 {
-    public class PaymentSuccessModel : PageModel
+    public class PaymentModel : PageModel
     {
         public void OnGet()
         {

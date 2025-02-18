@@ -39,10 +39,6 @@ namespace ClickCart
 			builder.Services.AddTransient<EmailService>();
             builder.Services.AddScoped<OrderService>();
 
-            builder.Services.Configure<VNPayConfig>(
-            builder.Configuration.GetSection("VNPay"));
-            builder.Services.AddScoped<IVNPayService, VNPayService>();
-
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

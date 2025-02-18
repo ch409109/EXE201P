@@ -1,0 +1,203 @@
+﻿@page
+@model ClickCart.Pages.Customer.Premium.PremiumPurchaseModel
+@{
+    Layout = "_UserLayout";
+}
+
+<div class="premium-container">
+    <h3 class="text-center mb-4">Các Gói Premium</h3>
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow premium-card blue-card">
+                <div class="card-body text-center">
+                    <div class="premium-icon mb-3">
+                        <i class="fas fa-star fa-2x"></i>
+                    </div>
+                    <h5 class="card-title">Gói Premium Cơ Bản</h5>
+                    <div class="price-tag">49.000đ</div>
+                    <div class="features">
+                        <p class="card-text">
+                            <i class="fas fa-check-circle"></i>
+                            Miễn phí vận chuyển cho 10 đơn hàng
+                        </p>
+                        <p class="card-text">
+                            <i class="fas fa-check-circle"></i>
+                            Sử dụng trong vòng 1 tháng
+                        </p>
+                    </div>
+                    <a asp-page="/Payment/Payment" class="btn btn-premium btn-blue">Mua Ngay</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card shadow premium-card red-card">
+                <div class="premium-badge">Phổ biến</div>
+                <div class="card-body text-center">
+                    <div class="premium-icon mb-3">
+                        <i class="fas fa-crown fa-2x"></i>
+                    </div>
+                    <h5 class="card-title">Gói Premium Pro</h5>
+                    <div class="price-tag">99.000đ</div>
+                    <div class="features">
+                        <p class="card-text">
+                            <i class="fas fa-check-circle"></i>
+                            Miễn phí vận chuyển cho 25 đơn hàng
+                        </p>
+                        <p class="card-text">
+                            <i class="fas fa-check-circle"></i>
+                            Sử dụng trong vòng 1 tháng
+                        </p>
+                    </div>
+                    <a asp-page="/Payment/Payment" class="btn btn-premium btn-red">Mua Ngay</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .premium-container {
+        padding: 40px 20px;
+        width: 100%; /* Sử dụng toàn bộ chiều rộng */
+        position: relative; /* Để có thể định vị các card con */
+    }
+
+    .premium-card {
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        margin: 20px 0;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+        .premium-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+    .blue-card {
+        background: linear-gradient(145deg, #f8fdff, #e6f3ff);
+        border: 2px solid #007bff;
+    }
+
+    .red-card {
+        background: linear-gradient(145deg, #fff8f8, #ffe6e6);
+        border: 2px solid #dc3545;
+    }
+
+    .premium-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #dc3545;
+        color: white;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: bold;
+    }
+
+    .premium-icon {
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .card-title {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .price-tag {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .features {
+        margin: 25px 0;
+    }
+
+        .features .card-text {
+            color: #666;
+            margin: 10px 0;
+            font-size: 1rem;
+        }
+
+        .features i {
+            margin-right: 10px;
+            color: #28a745;
+        }
+
+    .btn-premium {
+        padding: 12px 35px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-blue {
+        background-color: #007bff;
+        color: white;
+        border: none;
+    }
+
+        .btn-blue:hover {
+            background-color: #0056b3;
+            color: white;
+            transform: scale(1.05);
+        }
+
+    .btn-red {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+    }
+
+        .btn-red:hover {
+            background-color: #c82333;
+            color: white;
+            transform: scale(1.05);
+        }
+
+    @@media (max-width: 768px) {
+        .premium-card {
+            margin: 15px 0;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+        }
+
+        .price-tag {
+            font-size: 1.8rem;
+        }
+    }
+
+    .row {
+        display: flex;
+        justify-content: space-between; /* Tạo khoảng cách giữa các card */
+        gap: 0; /* Bỏ gap vì chúng ta sẽ dùng margin */
+        padding: 0 100px; /* Tạo padding 100px ở cả hai bên */
+    }
+
+    .card-body {
+        padding: 40px 30px; /* Tăng padding của card-body */
+    }
+
+    /* Điều chỉnh độ rộng của các column để card không bị quá rộng */
+    .col-md-5 {
+        max-width: none;
+        width: auto;
+    }
+
+    .premium-card {
+        width: 350px; /* hoặc kích thước phù hợp khác */
+    }
+</style>
+
+<!-- Thêm Font Awesome vào phần head của trang -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
