@@ -15,7 +15,15 @@ namespace ClickCart.Models
 		public int TotalAmount { get; set; }
 
 		[Required]
+		public string? FullName { get; set; } = " ";
+
+		[Required, MaxLength(10)]
+		[Phone]
+		public string PhoneNumber { get; set; } = " ";
+
+		[Required]
 		public string ShippingAddress { get; set; }
+
 
 		[Required, MaxLength(50)]
 		public string PaymentStatus { get; set; }
