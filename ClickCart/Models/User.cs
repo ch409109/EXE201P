@@ -24,11 +24,7 @@ namespace ClickCart.Models
 
         [Required]
         public string Role { get; set; }
-        public Boolean IsFreeShip { get; set; }
-        public DateTime? FreeShipStartDate { get; set; } = null;
-        public DateTime? FreeShipEndDate { get; set; } = null;
-
-
+        public int FreeShipCount { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }
