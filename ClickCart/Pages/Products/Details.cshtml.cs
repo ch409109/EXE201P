@@ -15,6 +15,7 @@ namespace ClickCart.Pages.Products
         }
 
         public Product Product { get; set; }
+        public List<Product> RelatedProducts { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -31,6 +32,11 @@ namespace ClickCart.Pages.Products
             {
                 return NotFound();
             }
+
+            RelatedProducts = await _context.Products
+            .Where(p => p.CategoryID == Product.CategoryID && p.ProductID != Product.ProductID)
+            .Take(4)
+            .ToListAsync();
 
             return Page();
         }

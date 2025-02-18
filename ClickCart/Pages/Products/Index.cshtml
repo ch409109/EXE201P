@@ -108,11 +108,10 @@
 								<div class="product-image-wrapper">
 									<div class="single-products">
 										<div class="productinfo text-center">
-											<a asp-page="./Products/Details" asp-route-id="@product.ProductID">
+											<a asp-page="/Products/Details" asp-route-id="@product.ProductID">
 											<div style="width: 250px; height: 250px; padding: 10px; display: flex; justify-content: center; align-items: center; background-color: #f3f3f3;">
 												<img style="max-width: 100%; max-height: 100%; object-fit: contain;"
-												src="/common/images/products/@product.ImageUrl"
-												alt="@product.ProductName" />
+												src="/common/images/products/@product.ImageUrl"/>
 											</div>
 											</a>
 											<h2>@product.Price.ToString("N0") VND</h2>

@@ -86,6 +86,31 @@
     </div>
 </section>
 
+<!-- Sản phẩm tương tự -->
+@if (Model.RelatedProducts != null && Model.RelatedProducts.Any())
+{
+    <div class="related-products">
+        <h2 class="related-title">Sản phẩm tương tự</h2>
+        <div class="related-products-grid">
+            @foreach (var relatedProduct in Model.RelatedProducts)
+            {
+                <div class="related-product-card">
+                    <a asp-page="./Details" asp-route-id="@relatedProduct.ProductID">
+                        <div class="related-product-image">
+                            <img src="/common/images/products/@relatedProduct.ImageUrl"
+                                 alt="@relatedProduct.ProductName" />
+                        </div>
+                        <div class="related-product-info">
+                            <h3 class="related-product-name">@relatedProduct.ProductName</h3>
+                            <p class="related-product-price">@String.Format("{0:N0} VND", relatedProduct.Price)</p>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+}
+
 <style>
     .product-details {
         padding: 2rem 0;
@@ -301,6 +326,123 @@
         .price-amount {
             font-size: 1.5rem;
         }
+    }
+
+    .related-products {
+        margin-top: 3rem;
+        padding: 2rem;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        /* Thêm thuộc tính này */
+        width: 100%;
+    }
+
+    .related-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #2d3436;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .related-products-grid {
+        display: grid;
+        /* Sửa lại grid-template-columns cố định 4 cột bằng nhau */
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+        /* Thêm các thuộc tính này */
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        justify-content: center;
+    }
+
+    .related-product-card {
+        background: #f8f9fa;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+        .related-product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .related-product-card a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+    .related-product-image {
+        position: relative;
+        padding-top: 100%;
+        background: #fff;
+    }
+
+        .related-product-image img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 0.5rem;
+        }
+
+    .related-product-info {
+        padding: 1rem;
+    }
+
+    .related-product-name {
+        font-size: 1rem;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        color: #2d3436;
+        /* Giới hạn 2 dòng cho tên sản phẩm */
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 2.4em;
+    }
+
+    .related-product-price {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1976d2;
+        margin: 0;
+    }
+
+    @@media (max-width: 768px) {
+        .related-products-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .related-products-grid {
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .related-product-name {
+            font-size: 0.9rem;
+        }
+
+        .related-product-price {
+            font-size: 1rem;
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .related-products-grid
+
+    {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
     }
 </style>
 
