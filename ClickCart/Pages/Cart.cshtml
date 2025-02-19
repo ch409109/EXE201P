@@ -1,5 +1,7 @@
 ﻿@page
 @model ClickCart.Pages.CartModel
+	@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 @{
 	ViewData["Title"] = "Cart";
 	Layout = "_UserLayout";
@@ -81,6 +83,9 @@
 								@foreach (var item in Model.CartItems)
 								{
 									<tr>
+										@{
+											HttpContext.Session.SetInt32("CartID", item.CartID);
+										}
 										<td class="text-center">
 											<img width="90px" height="90px" src="/common/images/products/@item.Product.ImageUrl" alt="@item.Product.ProductName" />
 										</td>
@@ -96,7 +101,8 @@
 											</form>
 										</td>
 										<td class="text-center">
-											<p>@{
+											<p>
+												@{
 													var totalPrice = item.Product.Price * item.Quantity;
 												}
 												@totalPrice.ToString("N0") VND
@@ -116,13 +122,13 @@
 
 					<div class="d-flex justify-content-between mt-4">
 						<h4>Tổng tiền: @Model.TotalPrice.ToString("N0") VND</h4>
-						<a href="/Checkout" class="btn btn-primary">Tiến hành thanh toán</a>
+						<a asp-page="/StepOne" class="btn btn-primary">Tiến hành thanh toán</a>
 					</div>
 				}
 			</div>
 		</div>
 	</section>
-	<br style="margin:10px"/>
+	<br style="margin:10px" />
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.scrollUp.min.js"></script>
