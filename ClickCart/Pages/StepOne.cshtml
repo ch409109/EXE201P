@@ -1,4 +1,70 @@
 ﻿@page
 @model ClickCart.Pages.StepOneModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 @{
+    ViewData["Title"] = "Step One - Checkout";
+    Layout = "_UserLayout";
 }
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Thông tin thanh toán</h2>
+
+        <!-- Form nhập thông tin cá nhân -->
+        <form method="post" asp-page-handler="Submit">
+            <div class="form-group">
+                <label for="FullName">Họ và tên:</label>
+                <input type="text" value="@Model.Customer.FullName" class="form-control" id="FullName" name="FullName" required />
+            </div>
+            <div class="form-group">
+                <label for="PhoneNumber">Số điện thoại:</label>
+                <input type="text" value="@Model.Customer.PhoneNumber" class="form-control" id="PhoneNumber" name="PhoneNumber" required />
+            </div>
+            <div class="form-group">
+                <label for="ShippingAddress">Địa chỉ giao hàng:</label>
+                <textarea class="form-control" id="ShippingAddress" name="ShippingAddress" rows="3" required></textarea>
+            </div>
+
+            <!-- Hiển thị tổng tiền -->
+            <div class="form-group">
+                <label><strong>Tổng tiền:</strong></label>
+                <p>@Model.TotalPrice.ToString("N0") VND</p>
+            </div>
+
+            <!-- Checkbox để áp dụng mã freeship -->
+            <div class="form-group">
+                @if (@Model.Customer.FreeShipCount > 0)
+                {
+                    <label for="FreeShip">
+                        <input type="checkbox" asp-for="@Model.isChecked" /> Sử dụng mã freeship
+                    </label>
+                }
+                <p class="text-muted">Quý khách còn <strong>@Model.Customer.FreeShipCount</strong> lượt freeship</p>
+            </div>
+
+            <!-- Phương thức thanh toán -->
+            <div class="form-group">
+                <label for="PaymentMethod">Phương thức thanh toán:</label>
+                <select class="form-control" id="PaymentMethod" name="PaymentMethod" required>
+                    <option value="Chuyển khoản">Chuyển khoản</option>
+                    <option value="Thanh toán khi nhận hàng">Thanh toán khi nhận hàng</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Đặt hàng</button>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            console.log("StepOne page loaded.");
+        });
+    </script>
+</body>
