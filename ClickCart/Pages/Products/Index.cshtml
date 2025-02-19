@@ -2,12 +2,12 @@
 @model ClickCart.Pages.Customer.Products.IndexModel
 
 @{
-	Layout = "_UserLayout";
-	ViewBag.Title = "Sản phẩm";
+    Layout = "_UserLayout";
+    ViewBag.Title = "Sản phẩm";
 }
 <section id="advertisement">
-	<div class="container">
-		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 156">
+    <div class="container">
+        @* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 156">
 			<!-- Background -->
 			<rect width="1140" height="156" fill="#FF6B00" />
 
@@ -29,145 +29,389 @@
 			<!-- Price -->
 			<circle cx="800" cy="78" r="50" fill="#FFFFFF" />
 			<text x="775" y="90" font-family="Arial" font-size="28" font-weight="bold" fill="#FF6B00">-50%</text>
-		</svg>
-	</div>
+		</svg> *@
+        <a asp-page="/Customer/Premium/PremiumPurchase" id="packageBanner">
+            <img src="~/common/images/banner/MUA SẮM THẢ GA KHÔNG LO PHÍ SHIP!.png" alt="Banner" />
+        </a>
+    </div>
 </section>
 <section id="search-price-filter" style="margin-bottom: 20px;">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="search-price-filter-form">
-					<!-- Search form -->
-					<!-- Search and Filter Form -->
-					<form method="post" class="search-filter-form">
-						<div class="form-row">
-							<!-- Search Form -->
-							<div class="col-md-6 mb-3">
-								<label for="search" class="form-label">Tìm kiếm sản phẩm</label>
-								<input type="text" name="search" class="form-control" id="search" placeholder="Nhập tên sản phẩm..." value="@Request.Query["search"]" />
-							</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="search-price-filter-form">
+                    <!-- Search form -->
+                    <!-- Search and Filter Form -->
+                    <form method="post" class="search-filter-form">
+                        <div class="form-row">
+                            <!-- Search Form -->
+                            <div class="col-md-6 mb-3">
+                                <label for="search" class="form-label">Tìm kiếm sản phẩm</label>
+                                <input type="text" name="search" class="form-control" id="search" placeholder="Nhập tên sản phẩm..." value="@Request.Query["search"]" />
+                            </div>
 
-							<!-- Price Range Selector -->
-							<div class="col-md-6 mb-3">
-								<label for="priceRange" class="form-label">Khoảng giá</label>
-								<select name="priceRange" class="form-control" id="priceRange">
-									<option value="0-100000">Dưới 100,000 VND</option>
-									<option value="100000-200000">Trên 100,000 VND</option>
-									<option value="200000-500000">Trên 200,000 VND</option>
-									<option value="500000-1000000">Trên 500,000 VND</option>
-								</select>
-							</div>
-						</div>
+                            <!-- Price Range Selector -->
+                            <div class="col-md-6 mb-3">
+                                <label for="priceRange" class="form-label">Khoảng giá</label>
+                                <select name="priceRange" class="form-control" id="priceRange">
+                                    <option value="0-100000">Dưới 100,000 VND</option>
+                                    <option value="100000-200000">Trên 100,000 VND</option>
+                                    <option value="200000-500000">Trên 200,000 VND</option>
+                                    <option value="500000-1000000">Trên 500,000 VND</option>
+                                </select>
+                            </div>
+                        </div>
 
-						<!-- Submit Button -->
-						<div class="form-row">
-							<div class="col-12 text-center">
-								<button type="submit" class="btn btn-primary">Tìm kiếm</button>
-							</div>
-						</div>
-					</form>
+                        <!-- Submit Button -->
+                        <div class="form-row">
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                            </div>
+                        </div>
+                    </form>
 
-				</div>
-			</div>
-		</div>
-	</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <section>
-	<div class="container">
-		<div class="row">
-			<!-- Sidebar for categories -->
-			<div class="col-sm-3">
-				<div class="left-sidebar">
-					<h2>Danh mục</h2>
-					<div class="panel-group category-products" id="accordian">
-						@foreach (var category in Model.Categories)
-						{
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a href="@Url.Page("Index", new { categoryId = category.CategoryID })">@category.CategoryName</a>
-									</h4>
-								</div>
-							</div>
-						}
-					</div>
-				</div>
-			</div>
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar for categories -->
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+                    <h2>Danh mục</h2>
+                    <div class="panel-group category-products" id="accordian">
+                        @foreach (var category in Model.Categories)
+                        {
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a href="@Url.Page("Index", new { categoryId = category.CategoryID })">@category.CategoryName</a>
+                                    </h4>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
 
-			<!-- Main product display -->
-			<div class="col-sm-9 padding-right">
-				<div class="features_items">
-					<h2 class="title text-center">Sản phẩm</h2>
+            <!-- Main product display -->
+            <div class="col-sm-9 padding-right">
+                <div class="features_items">
+                    <h2 class="title text-center">Sản phẩm</h2>
 
-					@if (Model.Products.Any())
-					{
-						@foreach (var product in Model.Products)
-						{
-							<div class="col-sm-4">
-								<div class="product-image-wrapper">
-									<div class="single-products">
-										<div class="productinfo text-center">
-											<a asp-page="./Products/Details" asp-route-id="@product.ProductID">
-											<div style="width: 250px; height: 250px; padding: 10px; display: flex; justify-content: center; align-items: center; background-color: #f3f3f3;">
-												<img style="max-width: 100%; max-height: 100%; object-fit: contain;"
-												src="/common/images/products/@product.ImageUrl"
-												alt="@product.ProductName" />
-											</div>
-											</a>
-											<h2>@product.Price.ToString("N0") VND</h2>
-											<h3 style="height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; font-size: 14px;">
-												@product.ProductName
-											</h3>
-											<form id="addToCartForm" class="purchase-form">
-												<input type="hidden" name="ProductID" value="@product.ProductID" />
-												<button type="submit" class="btn btn-default add-to-cart">
-													<i class="fa fa-shopping-cart"></i>
-													<span>Thêm vào giỏ hàng</span>
-												</button>
-											</form>
-										</div>
-									</div>
-								</div>
-							</div>
-						}
-					}
-					else
-					{
-						<p class="text-center">Không có sản phẩm nào để hiển thị.</p>
-					}
-				</div>
+                    @if (Model.Products.Any())
+                    {
+                        @foreach (var product in Model.Products)
+                        {
+                            <div class="col-sm-4">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <a asp-page="/Products/Details" asp-route-id="@product.ProductID">
+                                                <div class="product-image-container">
+                                                    <img src="/common/images/products/@product.ImageUrl" alt="@product.ProductName" />
+                                                </div>
+                                            </a>
+                                            <h2>@product.Price.ToString("N0") VND</h2>
+                                            <h3>@product.ProductName</h3>
+                                            <form class="purchase-form">
+                                                <input type="hidden" name="ProductID" value="@product.ProductID" />
+                                                <button type="submit" class="add-to-cart">
+                                                    <i class="fa fa-shopping-cart"></i>
+                                                    Thêm vào giỏ hàng
+                                                </button>
+                                            </form>
+                                            <a asp-page="/Products/Details" asp-route-id="@product.ProductID" class="view-detail-btn">
+                                                <i class="fa fa-info-circle"></i>
+                                                Xem chi tiết sản phẩm
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-center">Không có sản phẩm nào để hiển thị.</p>
+                    }
+                </div>
 
-				<!-- Pagination -->
-				<ul class="pagination justify-content-center">
-					@if (Model.CurrentPage > 1)
-					{
-						<li class="page-item">
-							<a class="page-link" href="@Url.Page("Index", new { pageNumber = Model.CurrentPage - 1, categoryId = Model.CategoryId })"> Trước</a>
-						</li>
-					}
-					@{
-						var id = HttpContext.Session.GetInt32("CategoryId");
-					}
-					@for (int i = 1; i <= Model.TotalPages; i++)
-					{
-						<li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-							
-							<a class="page-link" href="@Url.Page("Index", new { pageNumber = i, categoryId = id })">@i</a>
-						</li>
-					}
+                <!-- Pagination -->
+                <ul class="pagination justify-content-center">
+                    @if (Model.CurrentPage > 1)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Page("Index", new { pageNumber = Model.CurrentPage - 1, categoryId = Model.CategoryId })"> Trước</a>
+                        </li>
+                    }
+                    @{
+                        var id = HttpContext.Session.GetInt32("CategoryId");
+                    }
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
 
-					@if (Model.CurrentPage < Model.TotalPages)
-					{
-						<li class="page-item">
-							<a class="page-link" href="@Url.Page("Index", new { pageNumber = Model.CurrentPage + 1, categoryId = @id })">Tiếp &raquo;</a>
-						</li>
-					}
-				</ul>
-			</div>
-		</div>
-	</div>
+                            <a class="page-link" href="@Url.Page("Index", new { pageNumber = i, categoryId = id })">@i</a>
+                        </li>
+                    }
+
+                    @if (Model.CurrentPage < Model.TotalPages)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Page("Index", new { pageNumber = Model.CurrentPage + 1, categoryId = @id })">Tiếp &raquo;</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
 </section>
+
+<style>
+    .view-detail-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 10px;
+        background-color: #1976d2; /* Màu đỏ cam */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        margin-bottom: 30px;
+    }
+
+        .view-detail-btn:hover {
+            background-color: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+        }
+
+        .view-detail-btn i {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+
+        .view-detail-btn span {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+    /* Cải thiện product-image-wrapper */
+    .product-image-wrapper {
+        border: 1px solid #f3f3f3;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        margin-bottom: 30px;
+        background: white;
+    }
+
+        .product-image-wrapper:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+    /* Cải thiện single-products */
+    .single-products {
+        padding: 15px;
+    }
+
+    /* Cải thiện phần hình ảnh sản phẩm */
+    .productinfo {
+        position: relative;
+    }
+
+        .productinfo .product-image-container {
+            width: 100%;
+            height: 250px;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .productinfo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+            .productinfo img:hover {
+                transform: scale(1.05);
+            }
+
+        /* Cải thiện phần giá */
+        .productinfo h2 {
+            color: #e74c3c;
+            font-size: 20px;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+
+        /* Cải thiện tên sản phẩm */
+        .productinfo h3 {
+            height: 48px;
+            margin: 10px 0;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #2c3e50;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+    /* Cải thiện nút thêm vào giỏ hàng */
+    .add-to-cart {
+        background-color: #2ecc71;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-weight: 500;
+        margin: 10px 0;
+        width: 100%;
+        transition: background-color 0.3s ease;
+    }
+
+        .add-to-cart:hover {
+            background-color: #27ae60;
+        }
+
+        .add-to-cart i {
+            margin-right: 8px;
+        }
+
+    /* Cải thiện nút xem chi tiết */
+    .view-detail-btn {
+        background-color: #3498db;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        width: 100%;
+        margin-top: 10px;
+        transition: background-color 0.3s ease;
+    }
+
+        .view-detail-btn:hover {
+            background-color: #2980b9;
+            color: white;
+            text-decoration: none;
+        }
+
+    /* Cải thiện phần pagination */
+    .pagination {
+        margin: 30px 0;
+    }
+
+        .pagination .page-link {
+            color: #3498db;
+            border: 1px solid #3498db;
+            margin: 0 5px;
+            border-radius: 5px;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #3498db;
+            border-color: #3498db;
+        }
+
+    /* Responsive adjustments */
+    @@media (max-width: 768px) {
+        .col-sm-4 {
+            width: 50%;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .col-sm-4 {
+            width: 100%;
+        }
+    }
+</style>
+
+<script>
+        toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+        // Thêm đoạn script này vào cuối file
+        $(document).ready(function() {
+        $('.purchase-form').on('submit', function(e) {
+            e.preventDefault();
+
+            const $form = $(this);
+            const $button = $form.find('button[type="submit"]');
+            const productId = $form.find('input[name="ProductID"]').val();
+
+            // Disable button to prevent double submission
+            $button.prop('disabled', true);
+
+            // Add loading state
+            $button.html('<i class="fa fa-spinner fa-spin"></i> Đang thêm...');
+
+            $.ajax({
+                url: '/Cart?handler=AddToCart',
+                type: 'GET',
+                data: {
+                    ProductID: productId,
+                    Quantity: 1
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Hiển thị thông báo thành công với toastr
+                        toastr.success(response.message, 'Thành công');
+                    } else {
+                        // Hiển thị thông báo lỗi với toastr
+                        toastr.error(response.message, 'Lỗi');
+
+                        // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
+                        if (response.message.includes("đăng nhập")) {
+                            setTimeout(function() {
+                                window.location.href = '/Login';
+                            }, 1500); // Đợi 1.5s để người dùng đọc thông báo
+                        }
+                    }
+                },
+                error: function() {
+                    toastr.error('Có lỗi xảy ra khi thêm vào giỏ hàng!', 'Lỗi');
+                },
+                complete: function() {
+                    // Restore button state
+                    $button.prop('disabled', false);
+                    $button.html('<i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng');
+                }
+            });
+        });
+    });
+</script>
 
 
 <script src="js/jquery.js"></script>

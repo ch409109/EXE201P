@@ -37,8 +37,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\Customer\Combo\" />
-  </ItemGroup>
-
 </Project>

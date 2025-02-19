@@ -1,0 +1,50 @@
+﻿@page
+@model ClickCart.Pages.Payment.PaymentModel
+@{
+    Layout = "_UserLayout";
+    ViewData["Title"] = "Thanh Toán";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default" style="margin-top: 30px; margin-bottom: 30px;">
+                <div class="panel-body text-center">
+                    <div class="thank-you-message" style="margin-bottom: 30px;">
+                        <h2 style="color: #4CAF50; margin-bottom: 15px;">Cảm ơn bạn đã mua sắm tại ClickCart!</h2>
+                        <p style="font-size: 16px; color: #666;">Vui lòng quét mã QR hoặc chuyển khoản theo thông tin bên dưới để hoàn tất thanh toán</p>
+                    </div>
+
+                    <div class="qr-container" style="background-color: #f8f9fa; padding: 30px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <!-- Thay thế đường dẫn ảnh QR của bạn vào đây -->
+                        <img src="~/common/images/qrcode/qrtest.png" alt="QR Code Thanh Toán" style="max-width: 200px; margin-bottom: 20px;">
+
+                        <div class="bank-details" style="text-align: left; max-width: 300px; margin: 0 auto;">
+                            <div class="detail-item" style="margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                                <h4 style="color: #333; margin-bottom: 5px;">Ngân Hàng</h4>
+                                <p style="margin: 0; color: #666;">BIDV</p>
+                            </div>
+
+                            <div class="detail-item" style="margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                                <h4 style="color: #333; margin-bottom: 5px;">Số Tài Khoản</h4>
+                                <p style="margin: 0; color: #666;">2345678910JQKA</p>
+                            </div>
+
+                            <div class="detail-item">
+                                <h4 style="color: #333; margin-bottom: 5px;">Chủ Tài Khoản</h4>
+                                <p style="margin: 0; color: #666;">NGUYEN CONG PHU TRONG</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="additional-info" style="margin-top: 30px;">
+                        <p style="color: #666;">Sau khi chuyển khoản thành công, đơn hàng của bạn sẽ được xử lý trong thời gian sớm nhất</p>
+                        <a href="/Customer/OrderHistory" class="btn btn-primary" style="margin-top: 15px;">
+                            Xem lịch sử đơn hàng
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

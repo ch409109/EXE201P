@@ -15,13 +15,11 @@ namespace ClickCart.Pages
 		}
 
 		public List<Category> Categories { get; set; }
-		public List<Combo> Combos { get; set; }
 		public List<Product> FeaturedProducts { get; set; }
 		public void OnGet()
 		{
 			FeaturedProducts = _context.Products.OrderByDescending(p => p.ProductID).Take(6).ToList();
 			Categories = _context.Categories.Include(p => p.Products.Take(8)).ToList();
-			Combos = _context.Combos.Take(4).ToList();
 		}
 	}
 }
