@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClickCart.Migrations
 {
     [DbContext(typeof(ClickCartDbContext))]
-    [Migration("20250127201049_SeedDataforOrder")]
-    partial class SeedDataforOrder
+    [Migration("20250220180225_InitialDB")]
+    partial class InitialDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,26 @@ namespace ClickCart.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("ClickCart.Models.Banner", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Banners");
+                });
 
             modelBuilder.Entity("ClickCart.Models.Cart", b =>
                 {
@@ -55,6 +75,9 @@ namespace ClickCart.Migrations
 
                     b.Property<int>("CartID")
                         .HasColumnType("int");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductID")
                         .HasColumnType("int");
@@ -132,167 +155,6 @@ namespace ClickCart.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ClickCart.Models.Combo", b =>
-                {
-                    b.Property<int>("ComboID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ComboID"), 1L, 1);
-
-                    b.Property<string>("ComboName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.HasKey("ComboID");
-
-                    b.ToTable("Combos");
-
-                    b.HasData(
-                        new
-                        {
-                            ComboID = 1,
-                            ComboName = "Combo Bò Nướng",
-                            Description = "Combo Bò Nướng",
-                            ImageUrl = "Combo/Combo Bò Nướng.jpg",
-                            Price = 290000
-                        },
-                        new
-                        {
-                            ComboID = 2,
-                            ComboName = "Combo Heo Nướng",
-                            Description = "Combo Heo Nướng",
-                            ImageUrl = "Combo/Combo Heo Nướng.jpg",
-                            Price = 290000
-                        },
-                        new
-                        {
-                            ComboID = 3,
-                            ComboName = "Combo Nướng Thập Cẩm Đặc Biệt",
-                            Description = "Combo Nướng Thập Cẩm Đặc Biệt",
-                            ImageUrl = "Combo/Combo Nướng Thập Cẩm Đặc Biệt.jpg",
-                            Price = 350000
-                        },
-                        new
-                        {
-                            ComboID = 4,
-                            ComboName = "Lẩu Kim Chi Bò Thập Cẩm",
-                            Description = "Lẩu Kim Chi Bò Thập Cẩm",
-                            ImageUrl = "Combo/Lẩu Kim Chi Bò Thập Cẩm.jpg",
-                            Price = 350000
-                        },
-                        new
-                        {
-                            ComboID = 5,
-                            ComboName = "Lẩu Kim Chi Hải Sản",
-                            Description = "Lẩu Kim Chi Hải Sản",
-                            ImageUrl = "Combo/Lẩu Kim Chi Hải Sản.jpg",
-                            Price = 290000
-                        },
-                        new
-                        {
-                            ComboID = 6,
-                            ComboName = "Lẩu Nấm Thập Cẩm Đặc Biệt",
-                            Description = "Lẩu Nấm Thập Cẩm Đặc Biệt",
-                            ImageUrl = "Combo/Lẩu Nấm Thập Cẩm Đặc Biệt.jpg",
-                            Price = 350000
-                        },
-                        new
-                        {
-                            ComboID = 7,
-                            ComboName = "Lẩu Riêu Cua Bắp Bò Sườn Sụn",
-                            Description = "Lẩu Riêu Cua Bắp Bò Sườn Sụn",
-                            ImageUrl = "Combo/Lẩu Riêu Cua Bắp Bò Sườn Sụn.jpg",
-                            Price = 290000
-                        },
-                        new
-                        {
-                            ComboID = 8,
-                            ComboName = "Lẩu Riêu Cua Bắp Bò",
-                            Description = "Lẩu Riêu Cua Bắp Bò",
-                            ImageUrl = "Combo/Lẩu Riêu Cua Bắp Bò.jpg",
-                            Price = 290000
-                        },
-                        new
-                        {
-                            ComboID = 9,
-                            ComboName = "Lẩu Riêu Cua Bò Mỹ Sườn Sụn",
-                            Description = "Lẩu Riêu Cua Bò Mỹ Sườn Sụn",
-                            ImageUrl = "Combo/Lẩu Riêu Cua Bò Mỹ Sườn Sụn.jpg",
-                            Price = 350000
-                        },
-                        new
-                        {
-                            ComboID = 10,
-                            ComboName = "Lẩu Riêu Cua Bò Thập Cẩm",
-                            Description = "Lẩu Riêu Cua Bò Thập Cẩm",
-                            ImageUrl = "Combo/Lẩu Riêu Cua Bò Thập Cẩm.jpg",
-                            Price = 290000
-                        },
-                        new
-                        {
-                            ComboID = 11,
-                            ComboName = "Lẩu Riêu Cua Thập Cẩm",
-                            Description = "Lẩu Riêu Cua Thập Cẩm",
-                            ImageUrl = "Combo/Lẩu Riêu Cua Thập Cẩm.jpg",
-                            Price = 290000
-                        },
-                        new
-                        {
-                            ComboID = 12,
-                            ComboName = "Lẩu Thái Bò Thập Cẩm",
-                            Description = "Lẩu Thái Bò Thập Cẩm",
-                            ImageUrl = "Combo/Lẩu Thái Bò Thập Cẩm.jpg",
-                            Price = 290000
-                        },
-                        new
-                        {
-                            ComboID = 13,
-                            ComboName = "Lẩu Thái Hải Sản",
-                            Description = "Lẩu Thái Hải Sản",
-                            ImageUrl = "Combo/Lẩu Thái Hải Sản.jpg",
-                            Price = 290000
-                        },
-                        new
-                        {
-                            ComboID = 14,
-                            ComboName = "Lẩu Thái Thập Cẩm 1",
-                            Description = "Lẩu Thái Thập Cẩm 1",
-                            ImageUrl = "Combo/Lẩu Thái Thập Cẩm 1.jpg",
-                            Price = 290000
-                        });
-                });
-
-            modelBuilder.Entity("ClickCart.Models.ComboProduct", b =>
-                {
-                    b.Property<int>("ComboID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("ComboID", "ProductID");
-
-                    b.HasIndex("ProductID");
-
-                    b.ToTable("ComboProducts");
-                });
-
             modelBuilder.Entity("ClickCart.Models.Order", b =>
                 {
                     b.Property<int>("OrderID")
@@ -304,6 +166,10 @@ namespace ClickCart.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PaymentGateway")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -314,7 +180,16 @@ namespace ClickCart.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
                     b.Property<string>("ShippingAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -334,30 +209,39 @@ namespace ClickCart.Migrations
                         new
                         {
                             OrderID = 1,
-                            CreatedAt = new DateTime(2025, 1, 23, 3, 10, 48, 711, DateTimeKind.Local).AddTicks(4641),
+                            CreatedAt = new DateTime(2025, 2, 16, 1, 2, 25, 364, DateTimeKind.Local).AddTicks(797),
+                            FullName = "Nguyễn Việt Tùng",
                             PaymentGateway = "Credit Card",
                             PaymentStatus = "Paid",
+                            PhoneNumber = "0123456789",
                             ShippingAddress = "123 Main Street, Hanoi",
+                            Status = "Delivered",
                             TotalAmount = 60000,
                             UserID = 7
                         },
                         new
                         {
                             OrderID = 2,
-                            CreatedAt = new DateTime(2025, 1, 25, 3, 10, 48, 711, DateTimeKind.Local).AddTicks(4651),
+                            CreatedAt = new DateTime(2025, 2, 18, 1, 2, 25, 364, DateTimeKind.Local).AddTicks(807),
+                            FullName = "Nguyễn Văn Toàn",
                             PaymentGateway = "COD",
                             PaymentStatus = "Pending",
+                            PhoneNumber = "0123456789",
                             ShippingAddress = "456 Secondary Street, HCM",
+                            Status = "Delivered",
                             TotalAmount = 65000,
                             UserID = 8
                         },
                         new
                         {
                             OrderID = 3,
-                            CreatedAt = new DateTime(2025, 1, 27, 3, 10, 48, 711, DateTimeKind.Local).AddTicks(4652),
+                            CreatedAt = new DateTime(2025, 2, 20, 1, 2, 25, 364, DateTimeKind.Local).AddTicks(809),
+                            FullName = "Phạm Xuân Cường",
                             PaymentGateway = "Bank Transfer",
                             PaymentStatus = "Paid",
+                            PhoneNumber = "0123456789",
                             ShippingAddress = "789 Tertiary Avenue, Da Nang",
+                            Status = "Delivered",
                             TotalAmount = 250000,
                             UserID = 9
                         });
@@ -370,6 +254,9 @@ namespace ClickCart.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderDetailID"), 1L, 1);
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("OrderID")
                         .HasColumnType("int");
@@ -386,6 +273,8 @@ namespace ClickCart.Migrations
                     b.HasKey("OrderDetailID");
 
                     b.HasIndex("OrderID");
+
+                    b.HasIndex("ProductID");
 
                     b.ToTable("OrderDetails");
 
@@ -1477,6 +1366,9 @@ namespace ClickCart.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int>("FreeShipCount")
+                        .HasColumnType("int");
+
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -1490,6 +1382,12 @@ namespace ClickCart.Migrations
                         .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime?>("PremiumEndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("PremiumStartDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Role")
                         .IsRequired()
@@ -1508,10 +1406,11 @@ namespace ClickCart.Migrations
                         new
                         {
                             UserID = 1,
-                            CreatedAt = new DateTime(2025, 1, 28, 3, 10, 47, 458, DateTimeKind.Local).AddTicks(3980),
+                            CreatedAt = new DateTime(2025, 2, 21, 1, 2, 23, 921, DateTimeKind.Local).AddTicks(2674),
                             Email = "HaiLTHE172555@fpt.edu.vn",
+                            FreeShipCount = 0,
                             FullName = "Lại Tuấn Hai",
-                            PasswordHash = "$2a$11$8YUr3aP85oFM60usq2mxH.c5Lg8xN9X.s2JxmOGcgv9NL0y6JHVRO",
+                            PasswordHash = "$2a$11$x2KD3lDbLNH1xNtmp8kmL.F8aF66RaP0ouroJSEtc/2KhM4Pf.75m",
                             PhoneNumber = "0123456789",
                             Role = "Admin",
                             Username = "HaiAdmin"
@@ -1519,10 +1418,11 @@ namespace ClickCart.Migrations
                         new
                         {
                             UserID = 2,
-                            CreatedAt = new DateTime(2025, 1, 28, 3, 10, 47, 601, DateTimeKind.Local).AddTicks(8334),
+                            CreatedAt = new DateTime(2025, 2, 21, 1, 2, 24, 85, DateTimeKind.Local).AddTicks(7476),
                             Email = "HungPVHE161180@fpt.edu.vn",
+                            FreeShipCount = 0,
                             FullName = "Phạm Việt Hưng",
-                            PasswordHash = "$2a$11$ei3m0TGXDwg2jnd6qtUkoeuNkwVXxOWyrdnbmtMUObpQCk9n.MpF.",
+                            PasswordHash = "$2a$11$P6ihT.453HZUks4oupS0bem86L3dke/voRwLMUMFk137ZCYDe4vN6",
                             PhoneNumber = "0123456789",
                             Role = "Admin",
                             Username = "HungAdmin"
@@ -1530,10 +1430,11 @@ namespace ClickCart.Migrations
                         new
                         {
                             UserID = 3,
-                            CreatedAt = new DateTime(2025, 1, 28, 3, 10, 47, 743, DateTimeKind.Local).AddTicks(5506),
+                            CreatedAt = new DateTime(2025, 2, 21, 1, 2, 24, 247, DateTimeKind.Local).AddTicks(8351),
                             Email = "CongHTHE172673@fpt.edu.vn",
+                            FreeShipCount = 0,
                             FullName = "Hoàng Thành Công",
-                            PasswordHash = "$2a$11$Usz20FHiQbBLxaOn3eQrneD9qUjj2ugqYkQ4JREnG/icishWX/5km",
+                            PasswordHash = "$2a$11$T2o0VDBs3GPQFuchpGDyou0hz1mR3fnKVC5scLw.tJXdy87xuAj9q",
                             PhoneNumber = "0123456789",
                             Role = "Admin",
                             Username = "CongAdmin"
@@ -1541,10 +1442,11 @@ namespace ClickCart.Migrations
                         new
                         {
                             UserID = 4,
-                            CreatedAt = new DateTime(2025, 1, 28, 3, 10, 47, 886, DateTimeKind.Local).AddTicks(2443),
+                            CreatedAt = new DateTime(2025, 2, 21, 1, 2, 24, 399, DateTimeKind.Local).AddTicks(6869),
                             Email = "NhatLVHE176909@fpt.edu.vn",
+                            FreeShipCount = 0,
                             FullName = "Lê Việt Nhật",
-                            PasswordHash = "$2a$11$m2HiyMJLL3YRfJD4i0qzoOWzpRsEfqiHukhO9TncSHuQfor0jficO",
+                            PasswordHash = "$2a$11$uRNS8Q1zCP82F6uJG6LEyOuM7hwHS1s4R8Q8/ER4U5fg2x2kibWUu",
                             PhoneNumber = "0123456789",
                             Role = "Admin",
                             Username = "NhatAdmin"
@@ -1552,10 +1454,11 @@ namespace ClickCart.Migrations
                         new
                         {
                             UserID = 5,
-                            CreatedAt = new DateTime(2025, 1, 28, 3, 10, 48, 25, DateTimeKind.Local).AddTicks(1195),
+                            CreatedAt = new DateTime(2025, 2, 21, 1, 2, 24, 571, DateTimeKind.Local).AddTicks(3189),
                             Email = "TrongLCPHS176090@fpt.edu.vn",
+                            FreeShipCount = 0,
                             FullName = "Lê Công Phú Trọng",
-                            PasswordHash = "$2a$11$Ne0BFE/GkLzSgzO.mma0duFlJ.8TuNBe/oppxbRtV.owizGR3aVu6",
+                            PasswordHash = "$2a$11$uBeAKA4AjkEZfd/6HqGok.t002CnKg0bgrWhFor3FPL3k/WKQUXSi",
                             PhoneNumber = "0123456789",
                             Role = "Admin",
                             Username = "TrongAdmin"
@@ -1563,10 +1466,11 @@ namespace ClickCart.Migrations
                         new
                         {
                             UserID = 6,
-                            CreatedAt = new DateTime(2025, 1, 28, 3, 10, 48, 169, DateTimeKind.Local).AddTicks(6178),
+                            CreatedAt = new DateTime(2025, 2, 21, 1, 2, 24, 719, DateTimeKind.Local).AddTicks(2347),
                             Email = "DatVTHS176109@fpt.edu.vn",
+                            FreeShipCount = 0,
                             FullName = "Vũ Tiến Đạt",
-                            PasswordHash = "$2a$11$0vVtqRHRl9rzLTgPBFnIcurtfsarMfGPKobczuG1/CVNTYOfEtzuW",
+                            PasswordHash = "$2a$11$gRxR3ulDcOUbKzKwO5u4T.Cz7aMQ3xH5wxsCZ62CuWeqKWouAknz6",
                             PhoneNumber = "0123456789",
                             Role = "Admin",
                             Username = "DatAdmin"
@@ -1574,10 +1478,11 @@ namespace ClickCart.Migrations
                         new
                         {
                             UserID = 7,
-                            CreatedAt = new DateTime(2025, 1, 28, 3, 10, 48, 305, DateTimeKind.Local).AddTicks(1820),
+                            CreatedAt = new DateTime(2025, 2, 21, 1, 2, 24, 876, DateTimeKind.Local).AddTicks(5517),
                             Email = "TungNVHE170677@fpt.edu.vn",
+                            FreeShipCount = 0,
                             FullName = "Nguyễn Việt Tùng",
-                            PasswordHash = "$2a$11$cc2J9R6WSCodFjHr7Zuv9O3FOq3VZPow0lraGQMsRXA.WSIMhKRWG",
+                            PasswordHash = "$2a$11$d3KfeR89Qj/3Mfy0UoWN1uwGw5g6W5svzV0UOlWkukj4cREdHKm.2",
                             PhoneNumber = "0987654321",
                             Role = "Customer",
                             Username = "TungUser"
@@ -1585,10 +1490,11 @@ namespace ClickCart.Migrations
                         new
                         {
                             UserID = 8,
-                            CreatedAt = new DateTime(2025, 1, 28, 3, 10, 48, 433, DateTimeKind.Local).AddTicks(9143),
+                            CreatedAt = new DateTime(2025, 2, 21, 1, 2, 25, 43, DateTimeKind.Local).AddTicks(5538),
                             Email = "ToanPMHE171369@fpt.edu.vn",
+                            FreeShipCount = 0,
                             FullName = "Phan Mạnh Toàn",
-                            PasswordHash = "$2a$11$qZkc5qMcf/BP3ZhkgOr0tuAERXy87GgPd9enr.gSLoY1pSpsk98Me",
+                            PasswordHash = "$2a$11$t8t4w6655fiYEjdndug1ZukqBEmYdAA1z7oRnULzdTdv4iQCndWK2",
                             PhoneNumber = "0987654321",
                             Role = "Customer",
                             Username = "ToanUser"
@@ -1596,10 +1502,11 @@ namespace ClickCart.Migrations
                         new
                         {
                             UserID = 9,
-                            CreatedAt = new DateTime(2025, 1, 28, 3, 10, 48, 567, DateTimeKind.Local).AddTicks(4283),
+                            CreatedAt = new DateTime(2025, 2, 21, 1, 2, 25, 190, DateTimeKind.Local).AddTicks(5719),
                             Email = "CuongPXHE172287@fpt.edu.vn",
+                            FreeShipCount = 0,
                             FullName = "Phạm Xuân Cường",
-                            PasswordHash = "$2a$11$kgob2gQQSUGv89JHUbNTIO0/4W9ymb9gcJG1W4b2AvuoLqVPfWqEm",
+                            PasswordHash = "$2a$11$KPrKhqo7eTCPpqLxfd7y7.itZDRN9N/2J6ZU5Izd9/ftWDUIqR6y.",
                             PhoneNumber = "0987654321",
                             Role = "Customer",
                             Username = "CuongUser"
@@ -1607,10 +1514,11 @@ namespace ClickCart.Migrations
                         new
                         {
                             UserID = 10,
-                            CreatedAt = new DateTime(2025, 1, 28, 3, 10, 48, 711, DateTimeKind.Local).AddTicks(3538),
+                            CreatedAt = new DateTime(2025, 2, 21, 1, 2, 25, 363, DateTimeKind.Local).AddTicks(8220),
                             Email = "AnhVNHE151076@fpt.edu.vn",
+                            FreeShipCount = 0,
                             FullName = "Vũ Nam Anh",
-                            PasswordHash = "$2a$11$roXLE2CSzwV51tG/v6RIou6wrr3TJxLcgmyZCnqgSBtX/TORw98Ka",
+                            PasswordHash = "$2a$11$Y2wdyRRQ1xU/846hJkY/peyD7XmFjiCR81e5RsCkdhyzHtG.cte2u",
                             PhoneNumber = "0123456789",
                             Role = "Customer",
                             Username = "AnhUser"
@@ -1677,25 +1585,6 @@ namespace ClickCart.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ClickCart.Models.ComboProduct", b =>
-                {
-                    b.HasOne("ClickCart.Models.Combo", "Combo")
-                        .WithMany("ComboProducts")
-                        .HasForeignKey("ComboID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ClickCart.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Combo");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("ClickCart.Models.Order", b =>
                 {
                     b.HasOne("ClickCart.Models.User", "User")
@@ -1715,7 +1604,15 @@ namespace ClickCart.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ClickCart.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Order");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("ClickCart.Models.Product", b =>
@@ -1737,11 +1634,6 @@ namespace ClickCart.Migrations
             modelBuilder.Entity("ClickCart.Models.Category", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("ClickCart.Models.Combo", b =>
-                {
-                    b.Navigation("ComboProducts");
                 });
 
             modelBuilder.Entity("ClickCart.Models.Order", b =>
