@@ -125,5 +125,17 @@ namespace ClickCart.Pages
 			}
 			return RedirectToPage();
 		}
+		public async Task<IActionResult> OnPostUpdateNote(int cartItemId, string note)
+		{
+			var cartItem = await _context.CartItems.FindAsync(cartItemId);
+			if (cartItem != null)
+			{
+				cartItem.Note = note; // Cập nhật ghi chú
+				_context.CartItems.Update(cartItem); // Cập nhật vào cơ sở dữ liệu
+				await _context.SaveChangesAsync(); // Lưu thay đổi
+			}
+
+			return RedirectToPage(); // Tải lại trang để hiển thị thay đổi
+		}
 	}
 }

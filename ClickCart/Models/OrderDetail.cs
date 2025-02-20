@@ -19,6 +19,7 @@ namespace ClickCart.Models
 
 		[Required]
 		public int Price { get; set; }
+		public string? Note { get; set; }
 
 		public Order Order { get; set; }
 		public Product Product { get; set; }

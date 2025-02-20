@@ -14,21 +14,6 @@
 </head><!--/head-->
 
 <body>
-	<!-- Pop-up reminder -->
-	<div id="packageReminder" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Bạn có muốn nâng cấp gói không?</h4>
-				</div>
-				<div class="modal-body">
-					<p>Nhận nhiều ưu đãi hơn khi nâng cấp gói của bạn ngay hôm nay!</p>
-					<a href="#" class="btn btn-primary" id="viewPackages">Xem các gói</a>
-				</div>
-			</div>
-		</div>
-	</div>
 
 	<!-- Banner giới thiệu gói -->
 	<div class="container text-center" style="margin-top: 20px;">
@@ -90,7 +75,13 @@
 											<img width="90px" height="90px" src="/common/images/products/@item.Product.ImageUrl" alt="@item.Product.ProductName" />
 										</td>
 										<td>
-											<h5><a href="#">@item.Product.ProductName</a></h5>
+											<h5>
+												<a asp-page="./Products/Details" asp-route-id="@item.ProductID">@item.Product.ProductName</a>
+												<form method="post" asp-page-handler="UpdateNote">
+													<input type="hidden" name="cartItemId" value="@item.CartItemID" />
+													<input class="form-control form-control-sm text-center mt-2" type="text" name="note" value="@item.Note" placeholder="Ghi chú" data-cartitemid="@item.CartItemID" />
+												</form>
+											</h5>
 										</td>
 										<td class="text-center">@item.Product.Price.ToString("N0") VND</td>
 										<td class="text-center">
@@ -121,16 +112,45 @@
 					</div>
 
 					<div class="d-flex justify-content-between mt-4">
-						<h4>@{
+						<h4>
+							@{
 								HttpContext.Session.SetString("TotalPrice", Model.TotalPrice.ToString());
 							}
-							Tổng tiền: @Model.TotalPrice.ToString("N0") VND</h4>
+							Tổng tiền: @Model.TotalPrice.ToString("N0") VND
+						</h4>
 						<a asp-page="/StepOne" class="btn btn-primary">Tiến hành thanh toán</a>
 					</div>
 				}
 			</div>
 		</div>
 	</section>
+
+	<
+	<script>
+		$(document).ready(function () {
+			// Lắng nghe sự thay đổi trong trường ghi chú và gửi AJAX request
+			$('input[name="note"]').on('input', function () {
+				var note = $(this).val();
+				var cartItemId = $(this).data('cartitemid');
+
+				// Gửi yêu cầu AJAX để cập nhật ghi chú
+				$.ajax({
+					url: '@Url.Page("/Cart", "UpdateNote")',
+					type: 'POST',
+					data: {
+						cartItemId: cartItemId,
+						note: note
+					},
+					success: function (response) {
+						console.log("Cập nhật ghi chú thành công!");
+					},
+					error: function (xhr, status, error) {
+						console.error("Có lỗi xảy ra khi cập nhật ghi chú.");
+					}
+				});
+			});
+		});
+	</script>
 	<br style="margin:10px" />
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>

@@ -79,6 +79,7 @@ namespace ClickCart.Pages
 				var newOD = new OrderDetail();
 				newOD.OrderID = newOrder.OrderID;
 				newOD.ProductID = cartItem.ProductID;
+				newOD.Note = cartItem.Note;
 				newOD.Quantity = cartItem.Quantity;
 				newOD.Price = cartItem.Product.Price * cartItem.Quantity;
 				_context.OrderDetails.Add(newOD);
@@ -156,7 +157,7 @@ namespace ClickCart.Pages
 				{
 					emailBody += $@"
 								<tr>
-									<td>{ods.Product.ProductName}</td>
+									<td>{ods.Product.ProductName}({ods.Note})</td>
 									<td>{ods.Product.Price.ToString("N0")} VND</td>
 									<td>{ods.Quantity}</td>
 									<td>{ods.Price.ToString("N0")} VND</td>
