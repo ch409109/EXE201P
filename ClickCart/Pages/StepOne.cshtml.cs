@@ -65,7 +65,8 @@ namespace ClickCart.Pages
 			newOrder.ShippingAddress = CustomerAddress;
 			newOrder.PaymentStatus = "Pending";
 			newOrder.PaymentGateway = PaymentMethod;
-			_context.Orders.Add(newOrder);
+            newOrder.Status = "Pending";
+            _context.Orders.Add(newOrder);
 			_context.SaveChanges();
 
 			var cartItems = _context.CartItems

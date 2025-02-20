@@ -1,0 +1,167 @@
+﻿@page
+@model ClickCart.Pages.Admin.Orders.IndexModel
+@{
+    ViewData["Title"] = "Quản lý đơn hàng";
+    Layout = "_AdminSideLayout";
+}
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Quản lý đơn hàng</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Mã đơn hàng</th>
+                            <th>Khách hàng</th>
+                            <th>Số điện thoại</th>
+                            <th>Địa chỉ</th>
+                            <th>Tổng tiền</th>
+                            <th>Phương thức</th>
+                            <th>Trạng thái đơn hàng</th>
+                            <th>Ngày đặt</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in Model.Orders)
+                        {
+                            <tr>
+                                <td>#@order.OrderID</td>
+                                <td>@order.FullName</td>
+                                <td>@order.PhoneNumber</td>
+                                <td>@order.ShippingAddress</td>
+                                <td>@order.TotalAmount.ToString("N0") đ</td>
+                                <td>@order.PaymentGateway</td>
+                                <td>
+                                    <span class="badge @GetStatusBadgeClass(order.Status)">
+                                        @GetStatusText(order.Status)
+                                    </span>
+                                </td>
+                                <td>@order.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary edit-status-btn"
+                                            data-order-id="@order.OrderID"
+                                            data-current-status="@order.Status">
+                                        <i class='bx bx-edit-alt'></i> Sửa
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Chỉnh sửa trạng thái -->
+<div class="modal fade" id="editStatusModal" tabindex="-1">
+    @Html.AntiForgeryToken()
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chỉnh sửa trạng thái đơn hàng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Trạng thái mới:</label>
+                    <select class="form-select" id="newStatusSelect">
+                        <option value="Pending">Chờ xử lý</option>
+                        <option value="Shipped">Đang giao hàng</option>
+                        <option value="Delivered">Đã giao hàng</option>
+                        <option value="Cancelled">Đã hủy</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="saveStatusChange">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    private string GetStatusBadgeClass(string status)
+    {
+        return status switch
+        {
+            "Pending" => "bg-warning",
+            "Shipped" => "bg-primary",
+            "Delivered" => "bg-success",
+            "Cancelled" => "bg-danger",
+            _ => "bg-secondary"
+        };
+    }
+
+    private string GetStatusText(string status)
+    {
+        return status switch
+        {
+            "Pending" => "Chờ xử lý",
+            "Shipped" => "Đang giao hàng",
+            "Delivered" => "Đã giao hàng",
+            "Cancelled" => "Đã hủy",
+            _ => status
+        };
+    }
+}
+
+    @section Scripts {
+    <script>
+        $(document).ready(function() {
+            let selectedOrderId = null;
+
+            // Mở modal và set giá trị
+            $('.edit-status-btn').click(function() {
+                selectedOrderId = $(this).data('order-id');
+                const currentStatus = $(this).data('current-status');
+                $('#newStatusSelect').val(currentStatus);
+                $('#editStatusModal').modal('show');
+            });
+
+            // Lưu thay đổi
+            $('#saveStatusChange').click(function() {
+                const newStatus = $('#newStatusSelect').val();
+
+                $.ajax({
+                    url: '/Admin/Orders/Index?handler=UpdateStatus',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        orderId: selectedOrderId,
+                        newStatus: newStatus
+                    }),
+                    headers: {
+                        "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function(response) {
+                        console.log("Response:", response);
+
+                        if (response.success) {
+                            toastr.success('Cập nhật thành công!');
+                            setTimeout(() => location.reload(), 1000); // Delay reload
+                        } else {
+                            toastr.error(response.message || 'Lỗi không xác định');
+                        }
+                        $('#editStatusModal').modal('hide');
+                    },
+                    error: function(xhr) {
+                        console.error("Error:", xhr.responseText);
+                        toastr.error('Lỗi kết nối server');
+                        $('#editStatusModal').modal('hide');
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+<!-- Trong _AdminSideLayout.cshtml hoặc section Scripts -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
