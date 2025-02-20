@@ -1,0 +1,171 @@
+﻿@page
+@model ClickCart.Pages.Admin.Premiums.IndexModel
+@{
+    ViewData["Title"] = "Quản lý Gói Premium";
+    Layout = "_AdminSideLayout";
+}
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Quản lý Gói Premium</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Mã gói</th>
+                            <th>Người dùng</th>
+                            <th>Tên gói</th>
+                            <th>Giá</th>
+                            <th>Trạng thái</th>
+                            <th>Ngày mua</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var premium in Model.Premiums)
+                        {
+                            <tr>
+                                <td>#@premium.Id</td>
+                                <td>@(premium.User?.FullName ?? "N/A")</td>
+                                <td>@premium.PremiumName</td>
+                                <td>@premium.Price.ToString("N0") đ</td>
+                                <td>
+                                    <span class="badge @GetStatusBadgeClass(premium.PaymentStatus)">
+                                        @GetStatusText(premium.PaymentStatus)
+                                    </span>
+                                </td>
+                                <td>@premium.PurchaseDate.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary edit-status-btn"
+                                            data-premium-id="@premium.Id"
+                                            data-current-status="@premium.PaymentStatus"
+                                    @(premium.User == null ? "disabled title='Người dùng không tồn tại'" : "")>
+                                        <i class='bx bx-edit-alt'></i> Sửa
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Chỉnh sửa trạng thái -->
+<div class="modal fade" id="editStatusModal" tabindex="-1">
+    @Html.AntiForgeryToken()
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chỉnh sửa trạng thái thanh toán</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Trạng thái mới:</label>
+                    <select class="form-select" id="newStatusSelect">
+                        <option value="Pending">Chờ thanh toán</option>
+                        <option value="Paid">Đã thanh toán</option>
+                        <option value="Cancelled">Đã hủy</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="saveStatusChange">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    private string GetStatusBadgeClass(string status)
+    {
+        return status switch
+        {
+            "Paid" => "bg-success",
+            "Pending" => "bg-warning",
+            "Cancelled" => "bg-danger",
+            _ => "bg-secondary"
+        };
+    }
+
+    private string GetStatusText(string status)
+    {
+        return status switch
+        {
+            "Paid" => "Đã thanh toán",
+            "Pending" => "Chờ thanh toán",
+            "Cancelled" => "Đã hủy",
+            _ => status
+        };
+    }
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            let selectedPremiumId = null;
+
+            $(document).on('click', '.edit-status-btn', function() {
+                if ($(this).prop('disabled')) return;
+
+                selectedPremiumId = $(this).data('premium-id');
+                const currentStatus = $(this).data('current-status');
+
+                $('#editStatusModal').modal('show');
+
+                $('#newStatusSelect').val(currentStatus);
+            });
+
+            $('#saveStatusChange').click(function() {
+                const newStatus = $('#newStatusSelect').val();
+                const $btn = $(this);
+
+                $btn.prop('disabled', true).html(`
+                    <span class="spinner-border spinner-border-sm" role="status"></span>
+                    Đang xử lý...
+                `);
+
+                $.ajax({
+                    url: '/Admin/Premiums/Index?handler=UpdateStatus',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        premiumId: selectedPremiumId,
+                        newStatus: newStatus
+                    }),
+                    headers: {
+                        "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            const $row = $(`[data-premium-id="${selectedPremiumId}"]`).closest('tr');
+                            $row.find('.badge')
+                                .removeClass()
+                                .addClass('badge ' + response.statusBadge)
+                                .text(response.statusText);
+
+                            $row.find('.edit-status-btn').data('current-status', newStatus);
+
+                            toastr.success('Cập nhật thành công!');
+                        } else {
+                            toastr.error(response.message || 'Lỗi không xác định');
+                        }
+                    },
+                    error: function(xhr) {
+                        toastr.error(xhr.responseJSON?.message || 'Lỗi kết nối máy chủ');
+                    },
+                    complete: function() {
+                        $btn.prop('disabled', false).html('Lưu thay đổi');
+                        $('#editStatusModal').modal('hide');
+                    }
+                });
+            });
+        });
+    </script>
+}

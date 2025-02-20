@@ -25,7 +25,10 @@
                             Sử dụng trong vòng 1 tháng
                         </p>
                     </div>
-                    <a asp-page="/Payment/Payment" class="btn btn-premium btn-blue">Mua Ngay</a>
+                    <form method="post" asp-page-handler="Purchase">
+                        <input type="hidden" name="packageType" value="Basic" />
+                        <button type="submit" class="btn btn-premium btn-blue">Mua Ngay</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -48,7 +51,10 @@
                             Sử dụng trong vòng 1 tháng
                         </p>
                     </div>
-                    <a asp-page="/Payment/Payment" class="btn btn-premium btn-red">Mua Ngay</a>
+                    <form method="post" asp-page-handler="Purchase">
+                        <input type="hidden" name="packageType" value="Pro" />
+                        <button type="submit" class="btn btn-premium btn-red">Mua Ngay</button>
+                    </form>
                 </div>
             </div>
         </div>

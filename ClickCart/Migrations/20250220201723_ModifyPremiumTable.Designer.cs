@@ -4,6 +4,7 @@ using ClickCart.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClickCart.Migrations
 {
     [DbContext(typeof(ClickCartDbContext))]
-    partial class ClickCartDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250220201723_ModifyPremiumTable")]
+    partial class ModifyPremiumTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,7 +41,7 @@ namespace ClickCart.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Banners", (string)null);
+                    b.ToTable("Banners");
                 });
 
             modelBuilder.Entity("ClickCart.Models.Cart", b =>
@@ -60,7 +62,7 @@ namespace ClickCart.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Carts", (string)null);
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("ClickCart.Models.CartItem", b =>
@@ -89,7 +91,7 @@ namespace ClickCart.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("CartItems", (string)null);
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("ClickCart.Models.Category", b =>
@@ -112,7 +114,7 @@ namespace ClickCart.Migrations
 
                     b.HasKey("CategoryID");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
@@ -201,7 +203,7 @@ namespace ClickCart.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
 
                     b.HasData(
                         new
@@ -274,7 +276,7 @@ namespace ClickCart.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("OrderDetails", (string)null);
+                    b.ToTable("OrderDetails");
 
                     b.HasData(
                         new
@@ -356,7 +358,7 @@ namespace ClickCart.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Premiums", (string)null);
+                    b.ToTable("Premiums");
                 });
 
             modelBuilder.Entity("ClickCart.Models.Product", b =>
@@ -396,7 +398,7 @@ namespace ClickCart.Migrations
 
                     b.HasIndex("CategoryID");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
 
                     b.HasData(
                         new
@@ -1430,7 +1432,7 @@ namespace ClickCart.Migrations
 
                     b.HasKey("UserID");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
 
                     b.HasData(
                         new
@@ -1582,7 +1584,7 @@ namespace ClickCart.Migrations
 
                     b.HasKey("VoucherID");
 
-                    b.ToTable("Vouchers", (string)null);
+                    b.ToTable("Vouchers");
                 });
 
             modelBuilder.Entity("ClickCart.Models.Cart", b =>
