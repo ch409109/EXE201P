@@ -38,6 +38,7 @@ namespace ClickCart
 			// Đăng ký EmailService
 			builder.Services.AddTransient<EmailService>();
             builder.Services.AddScoped<OrderService>();
+            builder.Services.AddAntiforgery(o => o.HeaderName = "RequestVerificationToken");
 
             var app = builder.Build();
 

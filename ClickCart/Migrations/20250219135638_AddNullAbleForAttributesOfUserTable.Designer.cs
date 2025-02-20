@@ -4,6 +4,7 @@ using ClickCart.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClickCart.Migrations
 {
     [DbContext(typeof(ClickCartDbContext))]
-    partial class ClickCartDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250219135638_AddNullAbleForAttributesOfUserTable")]
+    partial class AddNullAbleForAttributesOfUserTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -184,10 +186,6 @@ namespace ClickCart.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("TotalAmount")
                         .HasColumnType("int");
 
@@ -204,39 +202,36 @@ namespace ClickCart.Migrations
                         new
                         {
                             OrderID = 1,
-                            CreatedAt = new DateTime(2025, 2, 14, 21, 17, 42, 858, DateTimeKind.Local).AddTicks(9709),
+                            CreatedAt = new DateTime(2025, 2, 14, 20, 56, 38, 194, DateTimeKind.Local).AddTicks(3481),
                             FullName = "Nguyễn Việt Tùng",
                             PaymentGateway = "Credit Card",
                             PaymentStatus = "Paid",
                             PhoneNumber = "0123456789",
                             ShippingAddress = "123 Main Street, Hanoi",
-                            Status = "Delivered",
                             TotalAmount = 60000,
                             UserID = 7
                         },
                         new
                         {
                             OrderID = 2,
-                            CreatedAt = new DateTime(2025, 2, 16, 21, 17, 42, 858, DateTimeKind.Local).AddTicks(9719),
+                            CreatedAt = new DateTime(2025, 2, 16, 20, 56, 38, 194, DateTimeKind.Local).AddTicks(3491),
                             FullName = "Nguyễn Văn Toàn",
                             PaymentGateway = "COD",
                             PaymentStatus = "Pending",
                             PhoneNumber = "0123456789",
                             ShippingAddress = "456 Secondary Street, HCM",
-                            Status = "Delivered",
                             TotalAmount = 65000,
                             UserID = 8
                         },
                         new
                         {
                             OrderID = 3,
-                            CreatedAt = new DateTime(2025, 2, 18, 21, 17, 42, 858, DateTimeKind.Local).AddTicks(9720),
+                            CreatedAt = new DateTime(2025, 2, 18, 20, 56, 38, 194, DateTimeKind.Local).AddTicks(3492),
                             FullName = "Phạm Xuân Cường",
                             PaymentGateway = "Bank Transfer",
                             PaymentStatus = "Paid",
                             PhoneNumber = "0123456789",
                             ShippingAddress = "789 Tertiary Avenue, Da Nang",
-                            Status = "Delivered",
                             TotalAmount = 250000,
                             UserID = 9
                         });
@@ -1398,11 +1393,11 @@ namespace ClickCart.Migrations
                         new
                         {
                             UserID = 1,
-                            CreatedAt = new DateTime(2025, 2, 19, 21, 17, 41, 610, DateTimeKind.Local).AddTicks(3041),
+                            CreatedAt = new DateTime(2025, 2, 19, 20, 56, 36, 965, DateTimeKind.Local).AddTicks(5916),
                             Email = "HaiLTHE172555@fpt.edu.vn",
                             FreeShipCount = 0,
                             FullName = "Lại Tuấn Hai",
-                            PasswordHash = "$2a$11$wcbN1GmoRRrtpCGTkVwOfePffexVAFZdxb8eu9fBmWpySI7G.gStS",
+                            PasswordHash = "$2a$11$W7qE05pb5LqKM66z1N2XCeG4dBgY2YZ7k/PQKklAaLr72Ll6Kk26m",
                             PhoneNumber = "0123456789",
                             Role = "Admin",
                             Username = "HaiAdmin"
@@ -1410,11 +1405,11 @@ namespace ClickCart.Migrations
                         new
                         {
                             UserID = 2,
-                            CreatedAt = new DateTime(2025, 2, 19, 21, 17, 41, 748, DateTimeKind.Local).AddTicks(386),
+                            CreatedAt = new DateTime(2025, 2, 19, 20, 56, 37, 114, DateTimeKind.Local).AddTicks(3758),
                             Email = "HungPVHE161180@fpt.edu.vn",
                             FreeShipCount = 0,
                             FullName = "Phạm Việt Hưng",
-                            PasswordHash = "$2a$11$kjqmxdPTQAiCgO9DMhWRtOxw19Syf9drwe/CDxoZ77BdLLw/aUDbW",
+                            PasswordHash = "$2a$11$ajh0smFMT/cukbIfjAnmcuWCVemcYMXL7rcSxofsKYbSmMBIGGpme",
                             PhoneNumber = "0123456789",
                             Role = "Admin",
                             Username = "HungAdmin"
@@ -1422,11 +1417,11 @@ namespace ClickCart.Migrations
                         new
                         {
                             UserID = 3,
-                            CreatedAt = new DateTime(2025, 2, 19, 21, 17, 41, 905, DateTimeKind.Local).AddTicks(3363),
+                            CreatedAt = new DateTime(2025, 2, 19, 20, 56, 37, 258, DateTimeKind.Local).AddTicks(3936),
                             Email = "CongHTHE172673@fpt.edu.vn",
                             FreeShipCount = 0,
                             FullName = "Hoàng Thành Công",
-                            PasswordHash = "$2a$11$vamzWcKH6vkSiEJTBC51PulWnMR4.528037pRmfqhwupM9Cg5.lwC",
+                            PasswordHash = "$2a$11$6w0jBi/L3R2C05QObzPTqeCRh0mQqFX3MSnAVH2UktZnOT5PQzmaa",
                             PhoneNumber = "0123456789",
                             Role = "Admin",
                             Username = "CongAdmin"
@@ -1434,11 +1429,11 @@ namespace ClickCart.Migrations
                         new
                         {
                             UserID = 4,
-                            CreatedAt = new DateTime(2025, 2, 19, 21, 17, 42, 56, DateTimeKind.Local).AddTicks(3458),
+                            CreatedAt = new DateTime(2025, 2, 19, 20, 56, 37, 392, DateTimeKind.Local).AddTicks(4552),
                             Email = "NhatLVHE176909@fpt.edu.vn",
                             FreeShipCount = 0,
                             FullName = "Lê Việt Nhật",
-                            PasswordHash = "$2a$11$5mt5N8LhjF3paVm8x8319.Q6DViForLLSZS1/I0l8GykSCAwbbKEC",
+                            PasswordHash = "$2a$11$h7QXnpzXDZAVTwS6WgcN/uWYRMDefTD2uUvTXja8Aez2UaFunPa5G",
                             PhoneNumber = "0123456789",
                             Role = "Admin",
                             Username = "NhatAdmin"
@@ -1446,11 +1441,11 @@ namespace ClickCart.Migrations
                         new
                         {
                             UserID = 5,
-                            CreatedAt = new DateTime(2025, 2, 19, 21, 17, 42, 189, DateTimeKind.Local).AddTicks(6551),
+                            CreatedAt = new DateTime(2025, 2, 19, 20, 56, 37, 529, DateTimeKind.Local).AddTicks(927),
                             Email = "TrongLCPHS176090@fpt.edu.vn",
                             FreeShipCount = 0,
                             FullName = "Lê Công Phú Trọng",
-                            PasswordHash = "$2a$11$XW8v9hqAaTHLQ6AXz8CxbesiihgA/nq2lkQgo0YjfqtvbFANTB1l2",
+                            PasswordHash = "$2a$11$4CcLibnJT0iLNIvM8sZhguFwsRyHiSDsJeJ6c/Bg1cF6mUI9myQbG",
                             PhoneNumber = "0123456789",
                             Role = "Admin",
                             Username = "TrongAdmin"
@@ -1458,11 +1453,11 @@ namespace ClickCart.Migrations
                         new
                         {
                             UserID = 6,
-                            CreatedAt = new DateTime(2025, 2, 19, 21, 17, 42, 323, DateTimeKind.Local).AddTicks(77),
+                            CreatedAt = new DateTime(2025, 2, 19, 20, 56, 37, 665, DateTimeKind.Local).AddTicks(257),
                             Email = "DatVTHS176109@fpt.edu.vn",
                             FreeShipCount = 0,
                             FullName = "Vũ Tiến Đạt",
-                            PasswordHash = "$2a$11$sGXhWQIFiU1cStYFtGXfnenn3yZumk7pep9Ehg2FZUfvMlfZq7Sxi",
+                            PasswordHash = "$2a$11$usds.Y3FtfptmovqiNhfM.ogmJPfCmAnntX.F9KM0H25mq3KLRMAS",
                             PhoneNumber = "0123456789",
                             Role = "Admin",
                             Username = "DatAdmin"
@@ -1470,11 +1465,11 @@ namespace ClickCart.Migrations
                         new
                         {
                             UserID = 7,
-                            CreatedAt = new DateTime(2025, 2, 19, 21, 17, 42, 455, DateTimeKind.Local).AddTicks(7766),
+                            CreatedAt = new DateTime(2025, 2, 19, 20, 56, 37, 798, DateTimeKind.Local).AddTicks(9812),
                             Email = "TungNVHE170677@fpt.edu.vn",
                             FreeShipCount = 0,
                             FullName = "Nguyễn Việt Tùng",
-                            PasswordHash = "$2a$11$cVYmdkeFn6uNnoIJItIqbOdCZF92XtTLa6QjV4NPU49Drzpylp9a.",
+                            PasswordHash = "$2a$11$qyGlCtt..fzE.Cd5dkkha.xlOu10US.cFUKT7zPmRdFQbwCq.FfLK",
                             PhoneNumber = "0987654321",
                             Role = "Customer",
                             Username = "TungUser"
@@ -1482,11 +1477,11 @@ namespace ClickCart.Migrations
                         new
                         {
                             UserID = 8,
-                            CreatedAt = new DateTime(2025, 2, 19, 21, 17, 42, 590, DateTimeKind.Local).AddTicks(1663),
+                            CreatedAt = new DateTime(2025, 2, 19, 20, 56, 37, 929, DateTimeKind.Local).AddTicks(9703),
                             Email = "ToanPMHE171369@fpt.edu.vn",
                             FreeShipCount = 0,
                             FullName = "Phan Mạnh Toàn",
-                            PasswordHash = "$2a$11$UwScLQSyzpOSD6fy69zK9uFJdVMuJ3RHCFbfQOvwb5m1WVFK3sRzq",
+                            PasswordHash = "$2a$11$3b0p.VDIs9OHYENTP9388.NN2buKOZ7hOgumSalrwZTQMSOVApoxm",
                             PhoneNumber = "0987654321",
                             Role = "Customer",
                             Username = "ToanUser"
@@ -1494,11 +1489,11 @@ namespace ClickCart.Migrations
                         new
                         {
                             UserID = 9,
-                            CreatedAt = new DateTime(2025, 2, 19, 21, 17, 42, 726, DateTimeKind.Local).AddTicks(1062),
+                            CreatedAt = new DateTime(2025, 2, 19, 20, 56, 38, 61, DateTimeKind.Local).AddTicks(7588),
                             Email = "CuongPXHE172287@fpt.edu.vn",
                             FreeShipCount = 0,
                             FullName = "Phạm Xuân Cường",
-                            PasswordHash = "$2a$11$.kclQvCvsWY4VMOC0kA5GOJRLg3d7vWjWq4flNqkXZ5kMc5/N.sH6",
+                            PasswordHash = "$2a$11$60tBwXrUZdS99NaKS5P4xu8oS9reXk.BV3IIs4sIa13qfYbcc/Zde",
                             PhoneNumber = "0987654321",
                             Role = "Customer",
                             Username = "CuongUser"
@@ -1506,11 +1501,11 @@ namespace ClickCart.Migrations
                         new
                         {
                             UserID = 10,
-                            CreatedAt = new DateTime(2025, 2, 19, 21, 17, 42, 858, DateTimeKind.Local).AddTicks(8930),
+                            CreatedAt = new DateTime(2025, 2, 19, 20, 56, 38, 194, DateTimeKind.Local).AddTicks(2720),
                             Email = "AnhVNHE151076@fpt.edu.vn",
                             FreeShipCount = 0,
                             FullName = "Vũ Nam Anh",
-                            PasswordHash = "$2a$11$dqE0O8LkcykcvqIjq5TXPuGDA.f5FxVFQFJBJNoK9pHbkLjOZVYVu",
+                            PasswordHash = "$2a$11$a3EH5hnLsQHm12aABIeN6Ofy1OISjVQ3rZJTZTX4aTyD9qS8u3yHy",
                             PhoneNumber = "0123456789",
                             Role = "Customer",
                             Username = "AnhUser"

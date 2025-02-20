@@ -1150,7 +1150,8 @@ namespace ClickCart.Data
                     ShippingAddress = "123 Main Street, Hanoi",
                     PaymentStatus = "Paid",
                     PaymentGateway = "Credit Card",
-                    CreatedAt = DateTime.Now.AddDays(-5)
+                    CreatedAt = DateTime.Now.AddDays(-5),
+                    Status = "Delivered"
                 },
                 new Order
                 {
@@ -1162,7 +1163,8 @@ namespace ClickCart.Data
                     ShippingAddress = "456 Secondary Street, HCM",
                     PaymentStatus = "Pending",
                     PaymentGateway = "COD",
-                    CreatedAt = DateTime.Now.AddDays(-3)
+                    CreatedAt = DateTime.Now.AddDays(-3),
+                    Status = "Delivered"
                 },
                 new Order
                 {
@@ -1174,7 +1176,8 @@ namespace ClickCart.Data
                     ShippingAddress = "789 Tertiary Avenue, Da Nang",
                     PaymentStatus = "Paid",
                     PaymentGateway = "Bank Transfer",
-                    CreatedAt = DateTime.Now.AddDays(-1)
+                    CreatedAt = DateTime.Now.AddDays(-1),
+                    Status = "Delivered"
                 }
 
             );
