@@ -101,7 +101,7 @@
 <div id="addProductModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post" asp-page-handler="Add">
+            <form method="post" asp-page-handler="Add" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h4 class="modal-title">Add New Product</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -119,8 +119,8 @@
                     <label>Description</label>
                     <textarea asp-for="NewProduct.Description" class="form-control"></textarea>
 
-                    <label>Image URL</label>
-                    <input type="text" asp-for="NewProduct.ImageUrl" class="form-control" />
+                    <label>Image</label>
+                    <input type="file" name="Image" class="form-control" accept="image/*" />
 
                     <label>Is Alcoholic</label>
                     <select asp-for="NewProduct.IsAlcoholic" class="form-control">
@@ -144,10 +144,11 @@
         </div>
     </div>
 </div>
+<!--Edit-->
 <div id="editProductModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post" asp-page-handler="Edit">
+            <form method="post" asp-page-handler="Edit" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h4 class="modal-title">Edit Product</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -167,8 +168,8 @@
                     <label>Description</label>
                     <textarea asp-for="EditProduct.Description" id="editProductDescription" class="form-control"></textarea>
 
-                    <label>Image URL</label>
-                    <input type="text" asp-for="EditProduct.ImageUrl" id="editProductImageUrl" class="form-control" />
+                    <label>Image</label>
+                    <input type="file" name="Image" class="form-control" accept="image/*" />
 
                     <label>Is Alcoholic</label>
                     <select asp-for="EditProduct.IsAlcoholic" id="editProductIsAlcoholic" class="form-control">

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ClickCart.Models;
 using ClickCart.Data;
@@ -32,7 +32,7 @@ namespace ClickCart.Pages.Admin.Orders
                 var order = await _context.Orders.FindAsync(model.OrderId);
                 if (order == null)
                 {
-                    return new JsonResult(new { success = false, message = "Kh�ng t�m th?y ??n h�ng" });
+                    return new JsonResult(new { success = false, message = "Không tìm thấyy đơn hàng" });
                 }
 
                 order.Status = model.NewStatus;
