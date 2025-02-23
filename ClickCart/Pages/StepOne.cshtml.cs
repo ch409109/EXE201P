@@ -52,9 +52,11 @@ namespace ClickCart.Pages
 			var CustomerPhone = Request.Form["PhoneNumber"];
 			var CustomerAddress = Request.Form["ShippingAddress"];
 			var PaymentMethod = Request.Form["PaymentMethod"];
-			if (!isChecked)
+			ShippingFee = 5000;
+			if (isChecked)
 			{
-				ShippingFee = 10000;
+				ShippingFee = 0;
+				Customer!.FreeShipCount--;
 			}
 			List<OrderDetail> orderDetails = new List<OrderDetail>();
 			var newOrder = new Order();
@@ -170,7 +172,13 @@ namespace ClickCart.Pages
 						</table>
 						<p><strong>Phí vận chuyển:</strong> {ShippingFee.ToString("N0")} VND</p>
 						<p><strong>Tổng tiền:</strong> {(TotalPrice + ShippingFee).ToString("N0")} VND</p>
-						<p>Hãy kiểm tra kỹ thông tin đơn hàng và nếu có bất kỳ câu hỏi nào, vui lòng liên hệ với chúng tôi.</p>
+						<p style='color: red;'><strong>Lưu ý:</strong> Đơn hàng của bạn sẽ được giao đến trong vòng 60 phút từ <b>{newOrder.CreatedAt}</b> 
+							đến <b>{newOrder.CreatedAt.AddMinutes(60)}</b>. Vui lòng giữ liên lạc để không bỏ lỡ đơn hàng từ chúng tôi.</p>
+						<p>Hãy kiểm tra kỹ thông tin đơn hàng và nếu có bất kỳ câu hỏi nào, vui lòng liên hệ với chúng tôi qua Fanpage Facebook: 
+						   <a href='https://www.facebook.com/profile.php?id=61571964152044' target='_blank' style='color: blue; text-decoration: none; font-weight: bold;'>
+							  ClickCart Fanpage
+						   </a>.
+						</p>
 						<p>Chúc bạn có một ngày tốt lành và trải nghiệm mua sắm tuyệt vời trên trang web của chúng tôi.♥♥♥</p>
 					</div>
 					<div class='email-footer'>
@@ -193,6 +201,7 @@ namespace ClickCart.Pages
 			{
 				return RedirectToPage("/Index");
 			}
+			TempData["TotalAmount"] = $"Đơn hàng của bạn hết {newOrder.TotalAmount.ToString("N0")} VND.";
 			return RedirectToPage("/Payment/Payment");
 		}
 	}
