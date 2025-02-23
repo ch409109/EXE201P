@@ -45,7 +45,7 @@ namespace ClickCart.Pages.Admin.Orders
 				var order = await _context.Orders.FindAsync(model.OrderId);
 				if (order == null)
 				{
-					return new JsonResult(new { success = false, message = "Không tìm thấyy đơn hàng" });
+					return new JsonResult(new { success = false, message = "Không tìm thấy đơn hàng" });
 				}
 
 				order.Status = model.NewStatus;
@@ -117,7 +117,24 @@ namespace ClickCart.Pages.Admin.Orders
 			}
 		}
 
-		public class UpdateStatusModel
+        public async Task<JsonResult> OnGetOrderDetails(int orderId)
+        {
+            var orderDetails = await _context.OrderDetails
+                .Where(od => od.OrderID == orderId)
+                .Include(od => od.Product)
+                .Select(od => new
+                {
+                    ProductName = od.Product.ProductName,
+                    Quantity = od.Quantity,
+                    Price = od.Price,
+                    Total = od.Quantity * od.Price
+                })
+                .ToListAsync();
+
+            return new JsonResult(orderDetails);
+        }
+
+        public class UpdateStatusModel
 		{
 			public int OrderId { get; set; }
 			public string NewStatus { get; set; }
