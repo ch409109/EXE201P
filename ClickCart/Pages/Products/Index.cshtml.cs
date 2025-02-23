@@ -33,10 +33,10 @@ namespace ClickCart.Pages.Customer.Products
 		public async Task OnPostAsync( int pageNumber = 1)
 		{
 			Categories = await _context.Categories.ToListAsync();
-			int categoryId = HttpContext.Session.GetInt32("CategoryId") ?? 1;
+			CategoryId = Int32.Parse(Request.Form["categoryId"]);
 			string name = Request.Form["search"];
 			string price = Request.Form["priceRange"];
-			await LoadProductsAsync(categoryId, name, price, pageNumber);
+			await LoadProductsAsync(CategoryId, name, price, pageNumber);
 		}
 		private async Task LoadProductsAsync(int? categoryId, string name, string price, int pageNumber)
 		{

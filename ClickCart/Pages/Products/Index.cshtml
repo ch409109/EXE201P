@@ -44,31 +44,47 @@
                     <!-- Search and Filter Form -->
                     <form method="post" class="search-filter-form">
                         <div class="form-row">
-                            <!-- Search Form -->
-                            <div class="col-md-6 mb-3">
+                            <!-- Ô nhập tìm kiếm -->
+                            <div class="col-md-4 mb-3">
                                 <label for="search" class="form-label">Tìm kiếm sản phẩm</label>
                                 <input type="text" name="search" class="form-control" id="search" placeholder="Nhập tên sản phẩm..." value="@Request.Query["search"]" />
                             </div>
 
-                            <!-- Price Range Selector -->
-                            <div class="col-md-6 mb-3">
+                            <!-- Lọc theo danh mục -->
+                            <div class="col-md-4 mb-3">
+                                <label for="category" class="form-label">Danh mục</label>
+                                <select name="categoryId" class="form-control" id="category">
+                                    @foreach (var category in Model.Categories)
+                                    {
+                                        <option value="@category.CategoryID" selected="@(Model.CategoryId == category.CategoryID ? "selected" : null)">
+                                            @category.CategoryName
+                                        </option>
+                                    }
+                                </select>
+                            </div>
+
+                            <!-- Lọc theo khoảng giá -->
+                            <div class="col-md-4 mb-3">
                                 <label for="priceRange" class="form-label">Khoảng giá</label>
                                 <select name="priceRange" class="form-control" id="priceRange">
+                                    <option value="">Tất cả</option>
                                     <option value="0-100000">Dưới 100,000 VND</option>
-                                    <option value="100000-200000">Trên 100,000 VND</option>
-                                    <option value="200000-500000">Trên 200,000 VND</option>
-                                    <option value="500000-1000000">Trên 500,000 VND</option>
+                                    <option value="100000-200000">100,000 - 200,000 VND</option>
+                                    <option value="200000-500000">200,000 - 500,000 VND</option>
+                                    <option value="500000-1000000">500,000 - 1,000,000 VND</option>
+                                    <option value="1000000-99999999">Trên 1,000,000 VND</option>
                                 </select>
                             </div>
                         </div>
 
-                        <!-- Submit Button -->
+                        <!-- Nút tìm kiếm -->
                         <div class="form-row">
                             <div class="col-12 text-center">
                                 <button type="submit" class="btn btn-primary">Tìm kiếm</button>
                             </div>
                         </div>
                     </form>
+
 
                 </div>
             </div>
