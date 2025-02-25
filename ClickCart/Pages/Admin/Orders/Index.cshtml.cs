@@ -126,8 +126,8 @@ namespace ClickCart.Pages.Admin.Orders
                 {
                     ProductName = od.Product.ProductName,
                     Quantity = od.Quantity,
-                    Price = od.Price,
-                    Total = od.Quantity * od.Price
+                    Price = od.Product.Price,
+                    Total = od.Order.TotalAmount
                 })
                 .ToListAsync();
 

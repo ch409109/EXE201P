@@ -89,7 +89,7 @@ namespace ClickCart.Pages
 				newOD.ProductID = cartItem.ProductID;
 				newOD.Note = cartItem.Note;
 				newOD.Quantity = cartItem.Quantity;
-				newOD.Price = cartItem.Product.Price * cartItem.Quantity;
+				newOD.Price = cartItem.Product.Price;
 				_context.OrderDetails.Add(newOD);
 				_context.CartItems.Remove(cartItem);
 				_context.SaveChanges();
