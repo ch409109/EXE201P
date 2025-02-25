@@ -105,7 +105,7 @@
                     <table class="table table-bordered table-hover">
                         <thead class="table-light">
                             <tr>
-                                <th style="width: 40%">Sản phẩm</th>
+                                <th style="width: 20%">Sản phẩm</th>
                                 <th style="width: 15%">Số lượng</th>
                                 <th style="width: 20%">Đơn giá</th>
                                 <th style="width: 25%">Tổng</th>
@@ -219,7 +219,7 @@
                         total += item.total;
                         tbody.append(`
                             <tr>
-                                <td>${item.productName}</td>
+                                <td>${item.productName} (${item.note})</td>
                                 <td>${item.quantity}</td>
                                 <td>${item.price.toLocaleString()} đ</td>
                                 <td>${item.total.toLocaleString()} đ</td>
