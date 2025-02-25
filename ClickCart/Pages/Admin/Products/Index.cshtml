@@ -45,7 +45,6 @@
                         <th>Name</th>
                         <th>Image</th>
                         <th>Price</th>
-                        <th>Stock</th>
                         <th>Category</th>
                         <th>Actions</th>
                     </tr>
@@ -56,15 +55,13 @@
                         <tr>
                             <td>@item.ProductName</td>
                             <th><img src="/common/images/products/@item.ImageUrl" style="width:200px;height:200px" /></th>
-                            <td>@item.Price</td>
-                            <td>@item.Stock</td>
+                            <td>@item.Price.ToString("N0") VND</td>
                             <td>@item.Category.CategoryName</td>
                             <td>
                                 <a href="#editProductModal" class="edit" data-toggle="modal"
                                    data-id="@item.ProductID"
                                    data-name="@item.ProductName"
                                    data-price="@item.Price"
-                                   data-stock="@item.Stock"
                                    data-description="@item.Description"
                                    data-imageurl="@item.ImageUrl"
                                    data-isalcoholic="@item.IsAlcoholic">
@@ -113,9 +110,6 @@
                     <label>Price</label>
                     <input type="number" asp-for="NewProduct.Price" class="form-control" required />
 
-                    <label>Stock</label>
-                    <input type="number" asp-for="NewProduct.Stock" class="form-control" required />
-
                     <label>Description</label>
                     <textarea asp-for="NewProduct.Description" class="form-control"></textarea>
 
@@ -161,9 +155,6 @@
 
                     <label>Price</label>
                     <input type="number" asp-for="EditProduct.Price" id="editProductPrice" class="form-control" required />
-
-                    <label>Stock</label>
-                    <input type="number" asp-for="EditProduct.Stock" id="editProductStock" class="form-control" required />
 
                     <label>Description</label>
                     <textarea asp-for="EditProduct.Description" id="editProductDescription" class="form-control"></textarea>
