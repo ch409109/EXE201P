@@ -58,9 +58,14 @@ namespace ClickCart.Pages
 				ShippingFee = 0;
 				Customer!.FreeShipCount--;
 			}
+			
 			List<OrderDetail> orderDetails = new List<OrderDetail>();
 			var newOrder = new Order();
 			newOrder.UserID = Customer.UserID;
+			if (newOrder.CreatedAt < new DateTime(DateTime.Now.Year, 3, 3))
+			{
+				ShippingFee = 0;
+			}
 			newOrder.TotalAmount = TotalPrice + ShippingFee;
 			newOrder.FullName = CustomerName;
 			newOrder.PhoneNumber = CustomerPhone;
