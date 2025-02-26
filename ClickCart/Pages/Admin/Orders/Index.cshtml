@@ -216,13 +216,14 @@
                     let total = 0;
 
                     response.forEach(item => {
-                        total += item.total;
+                        let pricePerProduct = item.price * item.quantity;
+                        total = item.total;
                         tbody.append(`
                             <tr>
                                 <td>${item.productName} (${item.note})</td>
                                 <td>${item.quantity}</td>
                                 <td>${item.price.toLocaleString()} đ</td>
-                                <td>${item.total.toLocaleString()} đ</td>
+                                <td>${pricePerProduct.toLocaleString()} đ</td>
                             </tr>
                         `);
                     });

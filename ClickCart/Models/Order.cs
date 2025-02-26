@@ -34,7 +34,7 @@ namespace ClickCart.Models
         [Required]
         public string Status { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.Now.AddHours(7);
 
         public User User { get; set; }
 
