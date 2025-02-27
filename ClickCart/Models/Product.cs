@@ -15,7 +15,7 @@ namespace ClickCart.Models
 		public int CategoryID { get; set; }
 
 		[Required]
-		public int Price { get; set; }
+		public int Price { get; set; } 
 
 		[Required]
 		public int Stock { get; set; }

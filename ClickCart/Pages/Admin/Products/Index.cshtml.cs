@@ -61,7 +61,9 @@ namespace ClickCart.Pages.Admin.Products
 			{
 				return RedirectToPage("/Login");
 			}
-			_context.Products.Add(NewProduct);
+            int increasedPrice = (int)Math.Round(NewProduct.Price * 1.1 / 1000) * 1000;
+            NewProduct.Price = increasedPrice;
+            _context.Products.Add(NewProduct);
 			var uploadedFile = Request.Form.Files.FirstOrDefault();
 			if (uploadedFile != null)
 			{
