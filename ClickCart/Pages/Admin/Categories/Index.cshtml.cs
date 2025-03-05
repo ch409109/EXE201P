@@ -13,7 +13,7 @@ namespace ClickCart.Pages.Admin.Categories
 
         public IndexModel(ClickCartDbContext context) => _context = context;
 
-        public List<Category> Categories { get; set; }
+        public List<Category> Categories { get; set; } = new List<Category>();
         [BindProperty] public Category NewCategory { get; set; }
         [BindProperty] public Category EditCategory { get; set; }
         public int PageNumber { get; set; } = 1;
@@ -31,18 +31,33 @@ namespace ClickCart.Pages.Admin.Categories
             if (userRole == null || !userRole.Equals("Admin") || userId == 0)
             {
                 return RedirectToPage("/Login");
-
             }
-            const int pageSize = 10;
+
+            const int pageSize = 10; 
             var query = _context.Categories.AsQueryable();
+
             TotalItems = await query.CountAsync();
             TotalPages = (int)Math.Ceiling(TotalItems / (double)pageSize);
-            Categories = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            if (pageNumber < 1)
+            {
+                pageNumber = 1;
+            }
+
+            if (TotalPages > 0 && pageNumber > TotalPages)
+            {
+                pageNumber = TotalPages;
+            }
+
+            int offset = (pageNumber - 1) * pageSize;
+            Categories = await query.Skip(offset).Take(pageSize).ToListAsync();
+
             PageNumber = pageNumber;
+
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAddAsync()
+        public async Task<IActionResult> OnPostAddAsync(int pageNumber)
         {
             string userRole = User.FindFirstValue(ClaimTypes.Role);
             var userId = GetUserId();
@@ -53,10 +68,10 @@ namespace ClickCart.Pages.Admin.Categories
             }
             _context.Categories.Add(NewCategory);
             await _context.SaveChangesAsync();
-            return Page();
+            return RedirectToPage(new { pageNumber = pageNumber });
         }
 
-        public async Task<IActionResult> OnPostEditAsync()
+        public async Task<IActionResult> OnPostEditAsync(int pageNumber)
         {
             string userRole = User.FindFirstValue(ClaimTypes.Role);
             var userId = GetUserId();
@@ -67,10 +82,10 @@ namespace ClickCart.Pages.Admin.Categories
             }
             _context.Categories.Update(EditCategory);
             await _context.SaveChangesAsync();
-            return Page();
+            return RedirectToPage(new { pageNumber = pageNumber });
         }
 
-        public async Task<IActionResult> OnPostDeleteAsync(int id)
+        public async Task<IActionResult> OnPostDeleteAsync(int id, int pageNumber)
         {
             string userRole = User.FindFirstValue(ClaimTypes.Role);
             var userId = GetUserId();
@@ -85,7 +100,7 @@ namespace ClickCart.Pages.Admin.Categories
                 _context.Categories.Remove(category);
                 await _context.SaveChangesAsync();
             }
-            return Page();
+            return RedirectToPage(new { pageNumber = pageNumber });
         }
     }
 }
